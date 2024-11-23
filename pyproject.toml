@@ -1,15 +1,15 @@
 [project]
 name = "comfyui-prompt-factory"
 description = "A modular system that adds randomness to prompt generation"
-version = "0.1.2"
+version = "0.0.1"
 license = { file = "LICENSE" }
 dependencies = ["dpath==2.2.0", "numpy==2.1.3"]
 
 [project.urls]
 Repository = "https://github.com/satche/comfyui-prompt-factory"
-#  Used by Comfy Registry https://comfyregistry.org
 
+#  Used by Comfy Registry https://comfyregistry.org
 [tool.comfy]
-PublisherId = "Satche"
+PublisherId = "satche"
 DisplayName = "Prompt Factory"
 Icon = ""
