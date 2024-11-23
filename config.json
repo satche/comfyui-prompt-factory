@@ -1,0 +1,83 @@
+{
+  "composition": {
+    "name": "🎞️ Composition",
+    "tags": {
+      "prefix": "score_9, score_8_up, score_7_up, source_anime",
+      "camera": {
+        "framings": {
+          "probability": 0.7,
+          "distribution": [1, 1, 0.5, 0.4],
+          "tags": ["portrait", "upper body", "close-up", "full body"]
+        },
+        "angles": {
+          "probability": 0.7,
+          "distribution": [1, 1, 1, 1, 0.4],
+          "tags": [
+            "straight on",
+            "from above",
+            "from below",
+            "from side",
+            "from behind"
+          ]
+        }
+      }
+    }
+  },
+  "action": {
+    "name": "🎬 Action",
+    "tags": {
+      "protagonist": ["1boy", "1girl"],
+      "position": {
+        "probability": 0.7,
+        "distribution": [1, 1, 0.3, 0.5, 0.4],
+        "tags": ["standing", "sitting", "lying", "walking", "running"]
+      },
+      "gesture": {
+        "probability": 0.7,
+        "tags": ["adjusting hair", "waving", "hand on hip", "crossed arms"]
+      }
+    }
+  },
+  "charcter": {
+    "name": "👤 Character",
+    "tags": {
+      "body_type": {
+        "probability": 0.7,
+        "tags": ["slim", "muscular", "chubby"]
+      },
+      "skin": {
+        "probability": 0.7,
+        "tags": ["dark skin", "tan"]
+      },
+      "hair": {
+        "color": ["black hair", "brown hair", "blonde hair", "ginger"],
+        "length": ["short hair", "medium hair", "long hair"]
+      },
+      "eyes": ["blue eyes", "green eyes", "brown eyes", "red eyes"],
+      "eyewear": {
+        "probability": 0.7,
+        "tags": ["glasses", "sunglasses"]
+      },
+      "attitude": ["smiling", "border", "upset", "sad"]
+    }
+  },
+  "clothes": {
+    "name": "👕 Clothes",
+    "tags": {
+      "top": ["t-shirt", "shirt", "jacket", "hoodie", "sweater"],
+      "bottom": ["jeans", "shorts", "skirt", "dress", "leggings"],
+      "accessories": {
+        "probability": 0.7,
+        "tags": ["hat", "scarf", "watch", "bracelet", "necklace"]
+      }
+    }
+  },
+  "environment": {
+    "name": "⛅️ Environment",
+    "tags": {
+      "location": ["living room", "forest", "beach", "mountain"],
+      "time": ["day", "night", "sunset", "sunrise"],
+      "weather": ["sunny", "cloudy", "rainy", "snowy"]
+    }
+  }
+}
