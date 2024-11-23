@@ -14,7 +14,7 @@ class NodeFactory:
 
 for key, value in data.items():
     node_id = key
-    node_name = value["name"]
+    node_name = value["name"] || key.capitalize()
     setattr(
         NodeFactory,
         node_id,
