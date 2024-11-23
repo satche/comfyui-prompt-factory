@@ -25,11 +25,14 @@ $ git clone https://github.com/satche/comfyui-prompt-factory
 $ pip install -r requirements.txt
 ```
 
-## Usage
+## Quick start
 
-Select one or multiple nodes from the ⚙️`Prompt Factory` collection and adapt the settings.
+Select one or multiple nodes from the ⚙️`Prompt Factory` collection and adapt the settings to your liking.
 
 Every node is created according to the [`config.json`](config.json) file, that can modify to add your own nodes.
+
+> [!NOTE]
+> Check the [Wiki](https://github.com/satche/comfyui-prompt-factory/wiki) for all informations about nodes and configuration.
 
 ## License
 
