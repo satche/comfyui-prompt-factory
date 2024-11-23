@@ -27,11 +27,12 @@ class Node:
         """
         Build the prompt according to tags and return it
         """
+        rng = np.random.default_rng(args["seed"])
         input_values = self.apply_input_values(self.data["tags"], args)
 
         tags = {}
         for key, value in input_values.items():
-            tags[key] = self.select_tags(value, args["seed"])
+            tags[key] = self.select_tags(rng, value)
 
         prompt = self.stringify_tags(tags.values())
         return (prompt,)
@@ -71,15 +72,13 @@ class Node:
         traverse(data)
         return applied_values
 
-    def select_tags(self, tags, seed=0):
+    def select_tags(self, rng, tags):
         """
         Select the given tags
         Fallback to chose a random tag according to RNG
         """
 
         selected_tags = []
-        rng = np.random.default_rng(seed)
-
         match tags:
 
             case str():
