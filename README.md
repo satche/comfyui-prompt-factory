@@ -10,7 +10,7 @@ A collection of [ComfyUI](https://github.com/comfyanonymous/ComfyUI) nodes that 
 
 If you have [ComfyUI Manager](https://github.com/ltdrdata/ComfyUI-Manager) installed, you can simply import [`workflow.json`](workflow.json) or [`workflow.png`](workflow.png) in ComfyUI and click on "Install Missing Nodes".
 
-Alternatively, you can install it via the [Comfy Registry](https://registry.comfy.org/publishers/satche/nodes/comfyui-scene-composer) using the [CLI](https://docs.comfy.org/comfy-cli/getting-started#install-cli).
+Alternatively, you can install it via the [Comfy Registry](https://registry.comfy.org/publishers/satche/nodes/comfyui-prompt-factory) using the [CLI](https://docs.comfy.org/comfy-cli/getting-started#install-cli).
 
 ```shell
 $ comfy node registry-install comfyui-prompt-factory
