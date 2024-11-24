@@ -157,6 +157,13 @@ class Node:
 
         return inputs
 
+    @classmethod
+    def create_node(cls, node_id, node_name):
+        return type(node_id, (cls,), {
+            "id": node_id,
+            "name": node_name
+        })
+
     @staticmethod
     def stringify_tags(tags):
         """
