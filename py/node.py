@@ -156,7 +156,7 @@ class Node:
                     else:
                         for path, value in dpath.search(
                                 value, '*', yielded=True):
-                            process_value(path, value)
+                            process_value(f"{key}_{path}", value)
 
         for key, value in dpath.search(self.data["tags"], '*', yielded=True):
             process_value(key, value)
