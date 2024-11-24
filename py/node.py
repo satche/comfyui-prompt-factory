@@ -91,6 +91,9 @@ class Node:
 
             case dict():
                 tags = data.get("tags", [])
+                if isinstance(tags, str):
+                    tags = [tags]
+
                 prefix = data.get("prefix", "")
                 suffix = data.get("suffix", "")
                 p = data.get("probability", 1)
