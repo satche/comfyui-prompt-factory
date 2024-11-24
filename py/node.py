@@ -73,8 +73,10 @@ class Node:
 
     def select_tags(self, rng, data):
         """
-        Select the given tags
-        Fallback to chose a random tag according to RNG
+        Select tags randomly
+        If it's a string, simply return the tags
+        If it's a list, choose tags randomly
+        If it's a dict, choose tags randomly according to its parameters
         """
 
         selected_tags = []
@@ -121,7 +123,9 @@ class Node:
         return selected_tags
 
     def build_inputs(self):
-        """Build node's inputs according to the data"""
+        """
+        Build node's inputs according to the data
+        """
         inputs = {"required": {}}
 
         def process_value(key, value):
@@ -161,6 +165,9 @@ class Node:
 
     @classmethod
     def create_node(cls, node_id, node_name=None):
+        """
+        Create a new node with ID and name
+        """
         return type(node_id, (cls,), {
             "id": node_id,
             "name": node_name or node_id.capitalize()
