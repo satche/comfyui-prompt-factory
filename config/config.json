@@ -67,7 +67,8 @@
       "top": ["t-shirt", "shirt", "jacket", "hoodie", "sweater"],
       "bottom": ["jeans", "shorts", "skirt", "dress", "leggings"],
       "accessories": {
-        "probability": 0.7,
+        "probability": 0.4,
+        "repeat": [1, 2],
         "tags": ["hat", "scarf", "watch", "bracelet", "necklace"]
       }
     }

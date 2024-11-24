@@ -29,7 +29,6 @@ class Node:
         """
         rng = np.random.default_rng(args["seed"])
         input_values = self.apply_input_values(self.data["tags"], args)
-
         tags = {}
         for key, value in input_values.items():
             tags[key] = self.select_tags(rng, value)
@@ -49,9 +48,6 @@ class Node:
             for key, value in data.items():
                 selected = inputs.get(key, "random")
 
-                if "tags" in value:
-                    value = value["tags"]
-
                 match selected:
                     case "none":
                         continue
@@ -63,8 +59,11 @@ class Node:
                                 "random", "none"]]
                             applied_values[key] = value
 
-                        if isinstance(value, dict) and "tags" not in value:
-                            traverse(value)
+                        if isinstance(value, dict):
+                            if "tags" in value:
+                                applied_values[key] = value
+                            else:
+                                traverse(value)
 
                     case _:
                         applied_values[key] = selected
@@ -72,25 +71,27 @@ class Node:
         traverse(data)
         return applied_values
 
-    def select_tags(self, rng, tags):
+    def select_tags(self, rng, data):
         """
         Select the given tags
         Fallback to chose a random tag according to RNG
         """
 
         selected_tags = []
-        match tags:
+        match data:
 
             case str():
-                selected_tags = tags
+                selected_tags = data
 
             case list():
-                selected_tags = rng.choice(tags)
+                selected_tags = rng.choice(data)
 
             case dict():
-                p = tags.get("probability", 1)
-                n = tags.get("number", 1)
-                d = tags.get("distribution", np.ones(len(tags)))
+                tags = data.get("tags", [])
+                p = data.get("probability", 1)
+                n = data.get("number", 1)
+                d = data.get("distribution", np.ones(len(tags)))
+                n = data.get("repeat", 1)
 
                 # Probability
                 if rng.random() > p:
@@ -100,7 +101,7 @@ class Node:
                 # random number between the 2 first values
                 if isinstance(n, list):
                     min_n = n[0]
-                    max_n = min(n[1], len(tags))
+                    max_n = min(n[1], len(data))
                     n = rng.integers(int(min_n), int(max_n))
 
                 # Distribution
@@ -115,6 +116,7 @@ class Node:
                     p=d,
                     replace=False,
                 )
+                selected_tags = self.stringify_tags(selected_tags)
 
         return selected_tags
 
