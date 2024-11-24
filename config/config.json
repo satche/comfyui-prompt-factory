@@ -50,8 +50,14 @@
         "tags": ["dark skin", "tan"]
       },
       "hair": {
-        "color": ["black hair", "brown hair", "blonde hair", "ginger"],
-        "length": ["short hair", "medium hair", "long hair"]
+        "color": {
+          "suffix": "hair",
+          "tags": ["black", "brown", "blonde", "ginger"]
+        },
+        "length": {
+          "suffix": "hair",
+          "tags": ["short", "medium", "long"]
+        }
       },
       "eyes": ["blue eyes", "green eyes", "brown eyes", "red eyes"],
       "eyewear": {

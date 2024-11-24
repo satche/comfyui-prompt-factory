@@ -90,6 +90,8 @@ class Node:
 
             case dict():
                 tags = data.get("tags", [])
+                prefix = data.get("prefix", "")
+                suffix = data.get("suffix", "")
                 p = data.get("probability", 1)
                 n = data.get("number", 1)
                 d = data.get("distribution", np.ones(len(tags)))
@@ -118,6 +120,13 @@ class Node:
                     p=d,
                     replace=False,
                 )
+
+                # Add prefix and suffix
+                selected_tags = [
+                    f"{prefix} {tag} {suffix}" for tag in selected_tags
+                ]
+
+                # Clean up
                 selected_tags = self.stringify_tags(selected_tags)
 
         return selected_tags
