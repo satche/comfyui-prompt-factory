@@ -29,7 +29,7 @@ $ pip install -r requirements.txt
 
 Select one or multiple nodes from the ⚙️`Prompt Factory` collection and adapt the settings to your liking.
 
-Every node is created according to the [`config.json`](config.json) file, that can modify to add your own nodes.
+Nodes and prompts are created according to the [`config.default`](config.default) folder. You can duplicate it and name it `config` to customize your own settings.
 
 > [!NOTE]
 > Check the [Wiki](https://github.com/satche/comfyui-prompt-factory/wiki) for all informations about nodes and configuration.

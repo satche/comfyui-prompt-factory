@@ -6,8 +6,9 @@ from .utils import load_config
 class Node:
 
     def __init__(self):
+        name = self.__class__.__name__.lower()
         config = load_config()
-        self.data = config[self.__class__.__name__.lower()]
+        self.data = config[name]
 
     @classmethod
     def INPUT_TYPES(cls):
