@@ -158,10 +158,10 @@ class Node:
         return inputs
 
     @classmethod
-    def create_node(cls, node_id, node_name):
+    def create_node(cls, node_id, node_name=None):
         return type(node_id, (cls,), {
             "id": node_id,
-            "name": node_name
+            "name": node_name or node_id.capitalize()
         })
 
     @staticmethod
