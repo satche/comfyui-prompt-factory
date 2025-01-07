@@ -21,8 +21,6 @@ def load_nodes_config():
     additional_config = merge_nodes_config()
     config.update(additional_config)
 
-    print(json.dumps(config, indent=4))
-
     return config
 
 
@@ -39,10 +37,7 @@ def merge_nodes_config():
         with open(path, 'r') as config_file:
             config_data = json.load(config_file)
             node_id = os.path.splitext(os.path.basename(path))[0]
-            merged_config[node_id] = {
-                "name": config_data.get("name", "Unnamed Node"),
-                "tags": config_data.get("tags", [])
-            }
+            merged_config[node_id] = config_data
 
     return merged_config
 

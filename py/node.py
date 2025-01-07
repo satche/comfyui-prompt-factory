@@ -167,10 +167,11 @@ class Node:
                         for path, value in dpath.search(
                                 value, '*', yielded=True):
                             process_value(f"{key}_{path}", value)
-
-        for key, value in dpath.search(self.data["tags"], '*', yielded=True):
-            process_value(key, value)
-
+        
+        if not self.data.get("hide", False):
+            for key, value in dpath.search(self.data["tags"], '*', yielded=True):
+                process_value(key, value)
+        
         return inputs
 
     @classmethod

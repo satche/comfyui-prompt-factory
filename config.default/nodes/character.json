@@ -1,5 +1,6 @@
 {
   "name": "👤 Character",
+  "hide": true,
   "tags": {
     "body_type": {
       "probability": 0.7,
