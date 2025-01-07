@@ -38,47 +38,6 @@
       }
     }
   },
-  "character": {
-    "name": "👤 Character",
-    "tags": {
-      "body_type": {
-        "probability": 0.7,
-        "tags": ["slim", "muscular", "chubby"]
-      },
-      "skin": {
-        "probability": 0.7,
-        "tags": ["dark skin", "tan"]
-      },
-      "hair": {
-        "color": {
-          "suffix": "hair",
-          "tags": ["black", "brown", "blonde", "ginger"]
-        },
-        "length": {
-          "suffix": "hair",
-          "tags": ["short", "medium", "long"]
-        }
-      },
-      "eyes": ["blue eyes", "green eyes", "brown eyes", "red eyes"],
-      "eyewear": {
-        "probability": 0.7,
-        "tags": ["glasses", "sunglasses"]
-      },
-      "attitude": ["smiling", "border", "upset", "sad"]
-    }
-  },
-  "clothes": {
-    "name": "👕 Clothes",
-    "tags": {
-      "top": ["t-shirt", "shirt", "jacket", "hoodie", "sweater"],
-      "bottom": ["jeans", "shorts", "skirt", "dress", "leggings"],
-      "accessories": {
-        "probability": 0.4,
-        "repeat": [1, 2],
-        "tags": ["hat", "scarf", "watch", "bracelet", "necklace"]
-      }
-    }
-  },
   "environment": {
     "name": "⛅️ Environment",
     "tags": {

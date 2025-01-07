@@ -1,11 +1,12 @@
-from .py.utils import load_config
+from .py.utils import load_nodes_config
 from .py.node import Node
 
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
-data = load_config()
+config = load_nodes_config()
 
-for key, value in data.items():
+#  Create each node according to the config folder
+for key, value in config.items():
     node_id = key
     node_name = value["name"]
     node_class = Node.create_node(node_id, node_name)

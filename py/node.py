@@ -1,14 +1,11 @@
 import numpy as np
 import dpath
-from .utils import load_config
 
 
 class Node:
 
-    def __init__(self):
-        name = self.__class__.__name__.lower()
-        config = load_config()
-        self.data = config[name]
+    def __init__(self, data):
+        self.data = data
 
     @classmethod
     def INPUT_TYPES(cls):

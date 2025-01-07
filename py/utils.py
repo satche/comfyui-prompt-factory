@@ -1,24 +1,54 @@
 import os
 import json
+from glob import glob
+
+ROOT_PATH = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+DEFAULT_PATH = "config.default/nodes"
+CUSTOM_PATH = "config/nodes"
 
 
-def load_config():
+def load_nodes_config():
     """
-    Load json file from the config.default folder
+    Load all node's config files
     """
-    user_folder_name = "config"
-    default_folder_name = "config.default"
-    root_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+    config_path = get_config_path()
+    config_files = glob(os.path.join(config_path, "nodes.json"))
 
-    # User default config as fallback
-    config_folder_name = user_folder_name
+    for path in config_files:
+        with open(path, 'r') as config_file:
+            config = json.load(config_file)
 
-    if not os.path.exists(os.path.join(root_path, config_folder_name)):
-        config_folder_name = default_folder_name
+    additional_config = merge_nodes_config()
+    config.update(additional_config)
 
-    # Load config
-    config_file_path = os.path.join(
-        root_path, config_folder_name, "config.json")
+    print(json.dumps(config, indent=4))
 
-    with open(config_file_path, 'r') as config_file:
-        return json.load(config_file)
+    return config
+
+
+def merge_nodes_config():
+    """
+    Merge all nodes' config files
+    """
+
+    config_path = get_config_path()
+    config_files = glob(os.path.join(config_path, "[!nodes]*.json"))
+
+    merged_config = {}
+    for path in config_files:
+        with open(path, 'r') as config_file:
+            config_data = json.load(config_file)
+            node_id = os.path.splitext(os.path.basename(path))[0]
+            merged_config[node_id] = {
+                "name": config_data.get("name", "Unnamed Node"),
+                "tags": config_data.get("tags", [])
+            }
+
+    return merged_config
+
+
+def get_config_path(filename=None):
+    config_path = CUSTOM_PATH if os.path.exists(
+        os.path.join(ROOT_PATH, CUSTOM_PATH)) else DEFAULT_PATH
+
+    return os.path.join(ROOT_PATH, config_path)

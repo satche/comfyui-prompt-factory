@@ -1,0 +1,29 @@
+{
+  "name": "👤 Character",
+  "tags": {
+    "body_type": {
+      "probability": 0.7,
+      "tags": ["slim", "muscular", "chubby"]
+    },
+    "skin": {
+      "probability": 0.7,
+      "tags": ["dark skin", "tan"]
+    },
+    "hair": {
+      "color": {
+        "suffix": "hair",
+        "tags": ["black", "brown", "blonde", "ginger"]
+      },
+      "length": {
+        "suffix": "hair",
+        "tags": ["short", "medium", "long"]
+      }
+    },
+    "eyes": ["blue eyes", "green eyes", "brown eyes", "red eyes"],
+    "eyewear": {
+      "probability": 0.7,
+      "tags": ["glasses", "sunglasses"]
+    },
+    "attitude": ["smiling", "border", "upset", "sad"]
+  }
+}
