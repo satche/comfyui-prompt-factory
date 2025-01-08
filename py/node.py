@@ -168,9 +168,6 @@ class Node:
                     else:
 
                         # Recursively process the dict
-                        inputs["required"][key] = (list(value.keys()), {
-                            "default": list(value.keys())[0]
-                        })
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
                             process_value(child_key, child_value)
