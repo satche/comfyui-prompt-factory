@@ -164,14 +164,20 @@ class Node:
                     if "tags" in value and isinstance(value["tags"], list):
                         process_value(key, value["tags"])
                     else:
-                        for path, value in dpath.search(
+
+                        # Recursively process the dict
+                        inputs["required"][key] = (list(value.keys()), {
+                            "default": list(value.keys())[0]
+                        })
+                        for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
-                            process_value(f"{key}_{path}", value)
-        
+                            process_value(child_key, child_value)
+
         if not self.data.get("hide", False):
-            for key, value in dpath.search(self.data["tags"], '*', yielded=True):
+            for key, value in dpath.search(
+                    self.data["tags"], '*', yielded=True):
                 process_value(key, value)
-        
+
         return inputs
 
     @classmethod
