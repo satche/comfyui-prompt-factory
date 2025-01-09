@@ -21,7 +21,7 @@ class Node:
 
     RETURN_TYPES = ("STRING",)
     FUNCTION = "build_prompt"
-    CATEGORY = "⚙️ Prompt Factory"
+    CATEGORY = "⚙️ Prompt Factory/⭐️ My Nodes"
 
     def build_prompt(self, **args):
         """
@@ -159,15 +159,13 @@ class Node:
                         "default": value[0] if value else ""
                     })
 
-                # Handle dict
+                # Handle dict recursively
                 case dict():
                     if "hide" in value and value["hide"]:
                         return
                     if "tags" in value and isinstance(value["tags"], list):
                         process_value(key, value["tags"])
                     else:
-
-                        # Recursively process the dict
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
                             process_value(child_key, child_value)
