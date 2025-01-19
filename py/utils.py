@@ -14,9 +14,10 @@ def load_nodes_config():
     config_path = get_config_path()
     config_files = glob(os.path.join(config_path, "nodes.json"))
 
+    config = {}
     for path in config_files:
         with open(path, 'r') as config_file:
-            config = json.load(config_file)
+            config.update(json.load(config_file))
 
     additional_config = merge_nodes_config()
     config.update(additional_config)
