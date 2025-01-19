@@ -13,10 +13,14 @@ class MergeStrings:
     @classmethod
     def INPUT_TYPES(s) -> Dict[str, dict]:
         return {
-            "required": {},
+            "required": {
+                "separator": ("STRING", {"default": ", "})},
             "optional": {}
         }
 
-    def merge_strings(self, **kwargs) -> Tuple[Any | None]:
-        value = ', '.join(v for v in kwargs.values() if isinstance(v, str))
+    def merge_strings(self, separator, **kwargs) -> Tuple[Any | None]:
+        value = separator.join(
+            v for v in kwargs.values()
+            if isinstance(v, str)
+        )
         return (value,)
