@@ -53,6 +53,9 @@ class Node:
                         continue
 
                     case "random":
+                        
+                        if isinstance(value, str):
+                            applied_values[key] = value
 
                         if isinstance(value, list):
                             value = [v for v in value if v not in [
