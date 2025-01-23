@@ -20,11 +20,14 @@
         "tags": ["short", "medium", "long"]
       }
     },
-    "eyes": ["blue eyes", "green eyes", "brown eyes", "red eyes"],
+    "eyes": {
+      "suffix": "eyes",
+      "tags": ["blue", "green", "brown", "yellow", "black"]
+    },
     "eyewear": {
       "probability": 0.7,
       "tags": ["glasses", "sunglasses"]
     },
-    "attitude": ["smiling", "border", "upset", "sad"]
+    "attitude": ["smiling", "bored", "upset", "sad"]
   }
 }

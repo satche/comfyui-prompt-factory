@@ -73,6 +73,10 @@ class Node:
                     case _:
                         applied_values[key] = selected
 
+                        if (isinstance(value, dict) and "tags" in value):
+                            if (isinstance(value["tags"], dict)):
+                                applied_values[key] = value["tags"][selected]
+
         traverse(data)
         return applied_values
 
@@ -181,7 +185,7 @@ class Node:
                         if isinstance(value["tags"], list):
                             process_value(key, value["tags"])
                         if isinstance(value["tags"], dict):
-                            process_value(key, value["tags"].keys())
+                            process_value(key, list(value["tags"].keys()))
                     else:
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
