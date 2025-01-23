@@ -25,10 +25,12 @@ class Node:
 
     def build_prompt(self, **args):
         """
-        Build the prompt according to tags and return it
+        Build the prompt according to the node's inputs
+        Concatenate the tags and return the prompt
         """
         rng = np.random.default_rng(args["seed"])
         input_values = self.apply_input_values(self.data["tags"], args)
+
         tags = {}
         for key, value in input_values.items():
             tags[key] = self.select_tags(rng, value)
@@ -53,7 +55,7 @@ class Node:
                         continue
 
                     case "random":
-                        
+
                         if isinstance(value, str):
                             applied_values[key] = value
 
@@ -77,9 +79,9 @@ class Node:
     def select_tags(self, rng, data):
         """
         Select tags randomly
-        If it's a string, simply return the tags
-        If it's a list, choose tags randomly
-        If it's a dict, choose tags randomly according to its parameters
+        String: simply return the tags
+        List/dict: choose tags randomly according to the parameters
+        (e.g. probability, distribution, etc)
         """
 
         selected_tags = []
@@ -93,19 +95,28 @@ class Node:
 
             case dict():
                 tags = data.get("tags", [])
-                if isinstance(tags, str):
-                    tags = [tags]
-
                 prefix = data.get("prefix", "")
                 suffix = data.get("suffix", "")
                 p = data.get("probability", 1)
-                n = data.get("number", 1)
                 d = data.get("distribution", np.ones(len(tags)))
                 n = data.get("repeat", 1)
 
                 # Probability
                 if rng.random() > p:
                     return ""
+
+                # Tag selection
+                if isinstance(tags, str):
+                    tags = [tags]
+
+                if isinstance(tags, dict):
+                    if tags.get("tags"):
+                        tags = self.select_tags(rng, tags)
+                    else:
+                        subtags = []
+                        for subtag in tags.values():
+                            subtags.append(self.select_tags(rng, subtag))
+                        tags = subtags
 
                 # If n is a list, choose a
                 # random number between the 2 first values
@@ -119,7 +130,6 @@ class Node:
                 d /= d.sum()
                 d = d.tolist()
 
-                # Tag selection
                 selected_tags = rng.choice(
                     tags,
                     size=n,
@@ -166,8 +176,12 @@ class Node:
                 case dict():
                     if "hide" in value and value["hide"]:
                         return
-                    if "tags" in value and isinstance(value["tags"], list):
-                        process_value(key, value["tags"])
+
+                    if "tags" in value:
+                        if isinstance(value["tags"], list):
+                            process_value(key, value["tags"])
+                        if isinstance(value["tags"], dict):
+                            process_value(key, value["tags"].keys())
                     else:
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
