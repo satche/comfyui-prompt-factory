@@ -9,38 +9,19 @@ CUSTOM_PATH = "config/nodes"
 
 def load_nodes_config():
     """
-    Load all node's config files
+    Load and merge all node's config files
     """
     config_path = get_config_path()
-    config_files = glob(os.path.join(config_path, "nodes.json"))
+    config_files = glob(os.path.join(config_path, "*.json"))
 
     config = {}
     for path in config_files:
         with open(path, 'r') as config_file:
-            config.update(json.load(config_file))
-
-    additional_config = merge_nodes_config()
-    config.update(additional_config)
-
-    return config
-
-
-def merge_nodes_config():
-    """
-    Merge all nodes' config files
-    """
-
-    config_path = get_config_path()
-    config_files = glob(os.path.join(config_path, "[!nodes]*.json"))
-
-    merged_config = {}
-    for path in config_files:
-        with open(path, 'r') as config_file:
             config_data = json.load(config_file)
             node_id = os.path.splitext(os.path.basename(path))[0]
-            merged_config[node_id] = config_data
+            config[node_id] = config_data
 
-    return merged_config
+    return config
 
 
 def get_config_path(filename=None):
