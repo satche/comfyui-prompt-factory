@@ -24,7 +24,7 @@ def load_nodes_config():
     return config
 
 
-def get_config_path(filename=None):
+def get_config_path():
     config_path = CUSTOM_PATH if os.path.exists(
         os.path.join(ROOT_PATH, CUSTOM_PATH)) else DEFAULT_PATH
 
