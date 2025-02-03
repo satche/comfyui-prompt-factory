@@ -35,6 +35,12 @@ class Node:
         for key, value in input_values.items():
             tags[key] = self.select_tags(rng, value)
 
+        variables = {}
+        if "variables" in self.data:
+            for key, value in self.data["variables"].items():
+                variables[key] = self.select_tags(rng, value)
+            tags = self.apply_variables(tags, variables)
+
         prompt = self.stringify_tags(tags.values(), ", ")
         return (prompt,)
 
@@ -163,9 +169,7 @@ class Node:
 
                     for key, value in data.items():
                         if key not in reserved_keys:
-                            selected_tags.append(
-                                str(self.select_tags(rng, value))
-                            )
+                            selected_tags.append(self.select_tags(rng, value))
 
                 # Add prefix and suffix
                 selected_tags = [
@@ -234,6 +238,17 @@ class Node:
             "name": node_name or node_id.capitalize()
         })
 
+    @classmethod
+    def apply_variables(self, tags, variables):
+        """
+        Replace tags starting by "$" with corresponding variable
+        """
+        for key, value in tags.items():
+            for var_key, var_value in variables.items():
+                value = value.replace(f"${var_key} ", f"{var_value} ")
+            tags[key] = value
+        return tags
+
     @staticmethod
     def stringify_tags(tags, separator=""):
         """
@@ -245,5 +260,7 @@ class Node:
         tags = separator.join(map(str, tags))
 
         # Remove extra comma and spaces
-        tags = separator.join(filter(None, map(str.strip, tags.split(','))))
+        tags = tags.replace(", ", ",").replace(
+            ",,", ",").replace(",", ", ").strip(", ")
+
         return tags

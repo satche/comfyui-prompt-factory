@@ -1,25 +1,18 @@
 {
   "name": "👕 Clothes",
+  "variables": {
+    "color": ["red", "blue", "green", "yellow"],
+    "top": ["t-shirt", "tank top"],
+    "bottom": ["jeans", "shorts"],
+    "swimsuit": ["one-piece swimsuit", "bikini"],
+    "uniform": ["police", "military"]
+  },
   "tags": {
     "type": {
       "tags": {
-        "casual": {
-          "separator": ", ",
-          "top": {
-            "separator": " ",
-            "color": ["red", "blue"],
-            "type": ["t-shirt", "tank top"]
-          },
-          "bottom": {
-            "separator": " ",
-            "color": ["blue", "green"],
-            "type": ["jeans", "shorts™"]
-          }
-        },
-
-        "swimsuit": "sw",
-
-        "uniform": "un"
+        "casual": "$color $top, $color $bottom",
+        "swimsuit": "$color $swimsuit",
+        "uniform": "$color uniform, $uniform uniform"
       }
     },
 
