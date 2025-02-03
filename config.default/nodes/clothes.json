@@ -1,6 +1,7 @@
 {
   "name": "👕 Clothes",
   "variables": {
+    "hide": true,
     "color": ["red", "blue", "green", "yellow"],
     "top": ["t-shirt", "tank top"],
     "bottom": ["jeans", "shorts"],
