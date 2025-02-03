@@ -23,6 +23,53 @@ class Node:
     FUNCTION = "build_prompt"
     CATEGORY = "⚙️ Prompt Factory/⭐️ My Nodes"
 
+    def build_inputs(self):
+        """
+        Build node's inputs according to the data
+        """
+        inputs = {"required": {}}
+
+        def process_value(key, value):
+
+            match value:
+
+                # Handle strings
+                case str():
+                    inputs["required"][key] = ("STRING", {
+                        "default": value,
+                        "multiline": True
+                    })
+
+                # Handle list of strings
+                case list() if all(isinstance(item, str) for item in value):
+                    value.insert(0, "random")
+                    value.append("none")
+                    inputs["required"][key] = (value, {
+                        "default": value[0] if value else ""
+                    })
+
+                # Handle dict recursively
+                case dict():
+                    if "hide" in value and value["hide"]:
+                        return
+
+                    if "tags" in value:
+                        if isinstance(value["tags"], list):
+                            process_value(key, value["tags"])
+                        if isinstance(value["tags"], dict):
+                            process_value(key, list(value["tags"].keys()))
+                    else:
+                        for child_key, child_value in dpath.search(
+                                value, '*', yielded=True):
+                            process_value(child_key, child_value)
+
+        if not self.data.get("hide", False):
+            for key, value in dpath.search(
+                    self.data["tags"], '*', yielded=True):
+                process_value(key, value)
+
+        return inputs
+
     def build_prompt(self, **args):
         """
         Build the prompt according to the node inputs
@@ -180,53 +227,6 @@ class Node:
                 selected_tags = self.stringify_tags(selected_tags, separator)
 
         return selected_tags
-
-    def build_inputs(self):
-        """
-        Build node's inputs according to the data
-        """
-        inputs = {"required": {}}
-
-        def process_value(key, value):
-
-            match value:
-
-                # Handle strings
-                case str():
-                    inputs["required"][key] = ("STRING", {
-                        "default": value,
-                        "multiline": True
-                    })
-
-                # Handle list of strings
-                case list() if all(isinstance(item, str) for item in value):
-                    value.insert(0, "random")
-                    value.append("none")
-                    inputs["required"][key] = (value, {
-                        "default": value[0] if value else ""
-                    })
-
-                # Handle dict recursively
-                case dict():
-                    if "hide" in value and value["hide"]:
-                        return
-
-                    if "tags" in value:
-                        if isinstance(value["tags"], list):
-                            process_value(key, value["tags"])
-                        if isinstance(value["tags"], dict):
-                            process_value(key, list(value["tags"].keys()))
-                    else:
-                        for child_key, child_value in dpath.search(
-                                value, '*', yielded=True):
-                            process_value(child_key, child_value)
-
-        if not self.data.get("hide", False):
-            for key, value in dpath.search(
-                    self.data["tags"], '*', yielded=True):
-                process_value(key, value)
-
-        return inputs
 
     @classmethod
     def create_node(cls, node_id, node_name=None):
