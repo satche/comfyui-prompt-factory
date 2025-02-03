@@ -12,16 +12,16 @@
     },
     "hair": {
       "color": {
-        "suffix": "hair",
+        "suffix": " hair",
         "tags": ["black", "brown", "blonde", "ginger"]
       },
       "length": {
-        "suffix": "hair",
+        "suffix": " hair",
         "tags": ["short", "medium", "long"]
       }
     },
     "eyes": {
-      "suffix": "eyes",
+      "suffix": " eyes",
       "tags": ["blue", "green", "brown", "yellow", "black"]
     },
     "eyewear": {

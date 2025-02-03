@@ -1,8 +1,28 @@
 {
   "name": "👕 Clothes",
   "tags": {
-    "top": ["t-shirt", "shirt", "jacket", "hoodie", "sweater"],
-    "bottom": ["jeans", "shorts", "skirt", "dress", "leggings"],
+    "type": {
+      "tags": {
+        "casual": {
+          "separator": ", ",
+          "top": {
+            "separator": " ",
+            "color": ["red", "blue"],
+            "type": ["t-shirt", "tank top"]
+          },
+          "bottom": {
+            "separator": " ",
+            "color": ["blue", "green"],
+            "type": ["jeans", "shorts™"]
+          }
+        },
+
+        "swimsuit": "sw",
+
+        "uniform": "un"
+      }
+    },
+
     "accessories": {
       "probability": 0.4,
       "repeat": [1, 2],

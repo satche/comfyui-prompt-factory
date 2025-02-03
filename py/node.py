@@ -35,7 +35,7 @@ class Node:
         for key, value in input_values.items():
             tags[key] = self.select_tags(rng, value)
 
-        prompt = self.stringify_tags(tags.values())
+        prompt = self.stringify_tags(tags.values(), ", ")
         return (prompt,)
 
     def apply_input_values(self, data, inputs):
@@ -101,6 +101,7 @@ class Node:
                 tags = data.get("tags", [])
                 prefix = data.get("prefix", "")
                 suffix = data.get("suffix", "")
+                separator = data.get("separator", " ")
                 p = data.get("probability", 1)
                 d = data.get("distribution", np.ones(len(tags)))
                 n = data.get("repeat", 1)
@@ -134,20 +135,37 @@ class Node:
                 d /= d.sum()
                 d = d.tolist()
 
-                selected_tags = rng.choice(
-                    tags,
-                    size=n,
-                    p=d,
-                    replace=False,
-                )
+                if tags:
+                    selected_tags = rng.choice(
+                        tags,
+                        size=n,
+                        p=d,
+                        replace=False,
+                    )
+
+                if not tags:
+                    reserved_keys = [
+                        "prefix",
+                        "suffix",
+                        "separator",
+                        "probability",
+                        "distribution",
+                        "repeat"
+                    ]
+
+                    for key, value in data.items():
+                        if key not in reserved_keys:
+                            selected_tags.append(
+                                str(self.select_tags(rng, value))
+                            )
 
                 # Add prefix and suffix
                 selected_tags = [
-                    f"{prefix} {tag} {suffix}" for tag in selected_tags
+                    f"{prefix}{tag}{suffix}" for tag in selected_tags
                 ]
 
                 # Clean up
-                selected_tags = self.stringify_tags(selected_tags)
+                selected_tags = self.stringify_tags(selected_tags, separator)
 
         return selected_tags
 
@@ -209,13 +227,15 @@ class Node:
         })
 
     @staticmethod
-    def stringify_tags(tags):
+    def stringify_tags(tags, separator=""):
         """
         Return a string from a list of tags
         Remove extra commas and spaces
         """
         if isinstance(tags, np.ndarray):
             tags = tags.tolist()
-        tags = ', '.join(map(str, tags))
-        tags = ', '.join(filter(None, map(str.strip, tags.split(','))))
+        tags = separator.join(map(str, tags))
+
+        # Remove extra comma and spaces
+        tags = separator.join(filter(None, map(str.strip, tags.split(','))))
         return tags
