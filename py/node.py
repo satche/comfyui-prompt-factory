@@ -250,7 +250,7 @@ class Node:
         """
         for key, value in tags.items():
             for var_key, var_value in variables.items():
-                value = value.replace(f"${var_key} ", f"{var_value} ")
+                value = value.replace("{"+var_key+"}", f"{var_value}")
             tags[key] = value
         return tags
 
