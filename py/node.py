@@ -25,7 +25,7 @@ class Node:
 
     def build_prompt(self, **args):
         """
-        Build the prompt according to the node's inputs
+        Build the prompt according to the node inputs
         Concatenate the tags and return the prompt
         """
         rng = np.random.default_rng(args["seed"])
@@ -40,8 +40,8 @@ class Node:
 
     def apply_input_values(self, data, inputs):
         """
-        Apply node's selected inputs value to the tags
-        Can be the selected value, a random one or none
+        Apply what has been selected in the node inputs
+        Can be "random", "none", or a selected value
         """
         applied_values = {}
 
@@ -51,9 +51,13 @@ class Node:
                 selected = inputs.get(key, "random")
 
                 match selected:
+
+                    # If none, just ignore the tag
                     case "none":
                         continue
 
+                    # If random, return the string, list or dict
+                    # according to the JSON config file
                     case "random":
 
                         if isinstance(value, str):
@@ -70,9 +74,11 @@ class Node:
                             else:
                                 traverse(value)
 
+                    # If a value is selected, just return it
                     case _:
                         applied_values[key] = selected
 
+                        # (Handle selected grouped tags)
                         if (isinstance(value, dict) and "tags" in value):
                             if (isinstance(value["tags"], dict)):
                                 applied_values[key] = value["tags"][selected]
@@ -135,6 +141,7 @@ class Node:
                 d /= d.sum()
                 d = d.tolist()
 
+                # Chose between the tags
                 if tags:
                     selected_tags = rng.choice(
                         tags,
@@ -143,7 +150,8 @@ class Node:
                         replace=False,
                     )
 
-                if not tags:
+                # Recursive choice (grouped tag)
+                else:
                     reserved_keys = [
                         "prefix",
                         "suffix",
