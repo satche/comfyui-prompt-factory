@@ -1,0 +1,20 @@
+{
+  "name": "👁️ Eyes",
+  "variables": {
+    "color-natural": ["blue", "green", "brown", "yellow", "black"],
+    "color-special": ["red", "purple", "white", "pink"],
+    "color-eyewear": ["black", "blue", "red", "green", "yellow"]
+  },
+  "tags": {
+    "color": {
+      "distribution": [0.8, 0.2],
+      "tags": ["{color-natural}", "{color-special}"],
+      "suffix": " eyes"
+    },
+    "eyewear": {
+      "probability": 0.7,
+      "tags": ["glasses", "sunglasses"],
+      "suffix": ", {color-eyewear} eyewear"
+    }
+  }
+}

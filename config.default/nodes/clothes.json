@@ -11,12 +11,11 @@
   "tags": {
     "type": {
       "tags": {
-        "casual": "$color $top, $color $bottom",
-        "swimsuit": "$color $swimsuit",
-        "uniform": "$color uniform, $uniform uniform"
+        "casual": "{color} {top}, {color} {bottom}",
+        "swimsuit": "{color} {swimsuit}",
+        "uniform": "{color} uniform, {uniform} uniform"
       }
     },
-
     "accessories": {
       "probability": 0.4,
       "repeat": [1, 2],
