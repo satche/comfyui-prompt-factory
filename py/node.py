@@ -76,18 +76,23 @@ class Node:
         Concatenate the tags and return the prompt
         """
         rng = np.random.default_rng(args["seed"])
+
+        # Apply values from the node inputs
         input_values = self.apply_input_values(self.data["tags"], args)
 
+        # Build tags randomly
         tags = {}
         for key, value in input_values.items():
             tags[key] = self.select_tags(rng, value)
 
+        # Replace tags with corresponding variables
         variables = {}
         if "variables" in self.data:
             for key, value in self.data["variables"].items():
                 variables[key] = self.select_tags(rng, value)
             tags = self.apply_variables(tags, variables)
 
+        # Build and clean-up final prompt
         prompt = self.stringify_tags(tags.values(), ", ")
         return (prompt,)
 
