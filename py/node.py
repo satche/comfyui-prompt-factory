@@ -66,7 +66,7 @@ class Node:
 
         if not self.data.get("hide", False):
             for key, value in dpath.search(
-                    self.data, '*', yielded=True):
+                    self.data["tags"], '*', yielded=True):
                 process_value(key, value)
 
         return inputs
