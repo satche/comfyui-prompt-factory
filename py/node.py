@@ -54,10 +54,11 @@ class Node:
                         return
 
                     if "tags" in value:
-                        if isinstance(value["tags"], list):
-                            process_value(key, value["tags"])
-                        if isinstance(value["tags"], dict):
-                            process_value(key, list(value["tags"].keys()))
+                        match value["tags"]:
+                            case list():
+                                process_value(key, value["tags"])
+                            case dict():
+                                process_value(key, list(value["tags"].keys()))
                     else:
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
@@ -110,11 +111,11 @@ class Node:
 
                 match selected:
 
-                    # If none, just ignore the tag
+                    # If "none", just ignore the tag
                     case "none":
                         continue
 
-                    # If random, return the string, list or dict
+                    # If "random", return the string, list or dict
                     # according to the JSON config file
                     case "random":
 
@@ -168,7 +169,7 @@ class Node:
                 separator = data.get("separator", " ")
                 p = data.get("probability", 1)
                 d = data.get("distribution", np.ones(len(tags)))
-                n = data.get("repeat", 1)
+                n = data.get("number", 1)
 
                 # Probability
                 if rng.random() > p:
@@ -187,11 +188,15 @@ class Node:
                             subtags.append(self.select_tags(rng, subtag))
                         tags = subtags
 
+                # Avoid n to be larger than the list
+                if isinstance(n, int) and n > len(tags):
+                    n = len(tags)
+
                 # If n is a list, choose a
                 # random number between the 2 first values
                 if isinstance(n, list):
                     min_n = n[0]
-                    max_n = min(n[1], len(data))
+                    max_n = min(n[1], len(tags))
                     n = rng.integers(int(min_n), int(max_n))
 
                 # Distribution
@@ -216,7 +221,7 @@ class Node:
                         "separator",
                         "probability",
                         "distribution",
-                        "repeat"
+                        "number"
                     ]
 
                     for key, value in data.items():
