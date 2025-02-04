@@ -258,8 +258,8 @@ class Node:
             "name": node_name or node_id.capitalize()
         })
 
-    @classmethod
-    def apply_variables(self, tags, variables):
+    @staticmethod
+    def apply_variables(tags, variables):
         """
         Replace {tags} with corresponding variable
         """
