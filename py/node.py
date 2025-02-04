@@ -251,7 +251,7 @@ class Node:
     @classmethod
     def apply_variables(self, tags, variables):
         """
-        Replace tags starting by "$" with corresponding variable
+        Replace {tags} with corresponding variable
         """
         for key, value in tags.items():
             for var_key, var_value in variables.items():
