@@ -199,10 +199,20 @@ class Node:
                     max_n = min(n[1], len(tags))
                     n = rng.integers(int(min_n), int(max_n))
 
-                # Distribution
-                d = np.resize(d, len(tags))
-                d /= d.sum()
-                d = d.tolist()
+                # Normalize the distribution so the sum = 1
+                # Add missing values if necessary
+                if np.sum(d) > 1:
+                    d = d / np.sum(d)
+                    d = np.append(d, np.zeros(len(tags) - len(d)))
+                elif len(d) < len(tags):
+                    n_remaining_tags = len(tags) - len(d)
+                    remaining_d = 1 - np.sum(d)
+                    d = np.append(
+                        d, np.full(
+                            n_remaining_tags,
+                            remaining_d / n_remaining_tags
+                        )
+                    )
 
                 # Chose between the tags
                 if tags:
