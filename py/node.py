@@ -2,6 +2,15 @@ import numpy as np
 import dpath
 from .utils import load_nodes_config
 
+RESERVED_KEYS = [
+    "prefix",
+    "suffix",
+    "separator",
+    "probability",
+    "distribution",
+    "number"
+]
+
 
 class Node:
 
@@ -62,7 +71,8 @@ class Node:
                     else:
                         for child_key, child_value in dpath.search(
                                 value, '*', yielded=True):
-                            process_value(child_key, child_value)
+                            if child_key not in RESERVED_KEYS:
+                                process_value(child_key, child_value)
 
         if not self.data.get("hide", False):
             for key, value in dpath.search(
@@ -163,19 +173,17 @@ class Node:
                 selected_tags = rng.choice(data)
 
             case dict():
-                tags = data.get("tags", [])
-                prefix = data.get("prefix", "")
-                suffix = data.get("suffix", "")
-                separator = data.get("separator", " ")
-                p = data.get("probability", 1)
-                d = data.get("distribution", np.ones(len(tags)))
-                n = data.get("number", 1)
 
                 # Probability
+                p = data.get("probability", 1)
                 if rng.random() > p:
                     return ""
 
                 # Tag selection
+                tags = data.get("tags", [])
+                prefix = data.get("prefix", "")
+                suffix = data.get("suffix", "")
+                separator = data.get("separator", " ")
                 if isinstance(tags, str):
                     tags = [tags]
 
@@ -188,7 +196,8 @@ class Node:
                             subtags.append(self.select_tags(rng, subtag))
                         tags = subtags
 
-                # Avoid n to be larger than the list
+                # Number of tags to select
+                n = data.get("number", 1)
                 if isinstance(n, int) and n > len(tags):
                     n = len(tags)
 
@@ -199,8 +208,10 @@ class Node:
                     max_n = min(n[1], len(tags))
                     n = rng.integers(int(min_n), int(max_n))
 
+                # Distribution: how likely each tag is to be selected
                 # Normalize the distribution so the sum = 1
                 # Add missing values if necessary
+                d = data.get("distribution", np.ones(len(tags)))
                 if np.sum(d) > 1:
                     d = d / np.sum(d)
                     d = np.append(d, np.zeros(len(tags) - len(d)))
@@ -225,17 +236,8 @@ class Node:
 
                 # Recursive choice (grouped tag)
                 else:
-                    reserved_keys = [
-                        "prefix",
-                        "suffix",
-                        "separator",
-                        "probability",
-                        "distribution",
-                        "number"
-                    ]
-
                     for key, value in data.items():
-                        if key not in reserved_keys:
+                        if key not in RESERVED_KEYS:
                             selected_tags.append(self.select_tags(rng, value))
 
                 # Add prefix and suffix
