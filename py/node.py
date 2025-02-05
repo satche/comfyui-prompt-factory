@@ -133,8 +133,7 @@ class Node:
                             applied_values[key] = value
 
                         if isinstance(value, dict):
-                            if ("tags" in value
-                                    and isinstance(value["tags"], list)):
+                            if "tags" in value:
                                 applied_values[key] = value
                             else:
                                 traverse(value)
@@ -184,7 +183,7 @@ class Node:
                 tags = data.get("tags", [])
                 prefix = data.get("prefix", "")
                 suffix = data.get("suffix", "")
-                separator = data.get("separator", " ")
+
                 if isinstance(tags, str):
                     tags = [tags]
 
@@ -249,6 +248,7 @@ class Node:
                 ]
 
                 # Clean up
+                separator = data.get("separator", " ")
                 selected_tags = self.stringify_tags(selected_tags, separator)
 
         return selected_tags
