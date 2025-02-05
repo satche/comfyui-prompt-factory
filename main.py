@@ -17,6 +17,8 @@ def main(seed, with_inputs):
 
         node_name = value.get("name", key)
         inputs = node.INPUT_TYPES()["required"]
+        if "seed" in inputs:
+            del inputs["seed"]
         prompt = node.build_prompt(seed=seed)
 
         print(f"{node_name:<16}{prompt[0]}")
