@@ -19,7 +19,7 @@ def main(seed, with_inputs):
         inputs = node.build_inputs()["required"]
         prompt = node.build_prompt(seed=seed)
 
-        print(f"{node_name:<17}{prompt[0]}")
+        print(f"{node_name:<16}{prompt[0]}")
         if with_inputs:
             for sub_key, sub_value in inputs.items():
                 print(f"> {sub_key:<15}{sub_value[0]}")
