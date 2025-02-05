@@ -1,56 +1,49 @@
 import argparse
-from py.utils import load_nodes_config
 from py.node import Node
+from py.utils import load_nodes_config
 
-NODE_CLASS_MAPPINGS = {}
-NODE_DISPLAY_NAME_MAPPINGS = {}
 config = load_nodes_config()
 
-#  Create each node according to the config folder
-for key, value in config.items():
-    node_id = key
-    node_name = value.get("name", key)
-    node_class = Node.create_node(node_id, node_name)
-    NODE_CLASS_MAPPINGS[node_id] = node_class
-    NODE_DISPLAY_NAME_MAPPINGS[node_id] = node_name
 
-__all__ = ["NODE_CLASS_MAPPINGS", "NODE_DISPLAY_NAME_MAPPINGS"]
-
-#  Create each node according to the config folder
-
-
-def main(seed):
-    config_args = {
-        "seed": seed,
-    }
+def main(seed, with_inputs):
 
     print(f"SEED: {seed}")
+    print("---")
 
-    for key in config.keys():
-        node_class = NODE_CLASS_MAPPINGS[key]
-        node = node_class()
+    # Create prompt for each node
+    for key, value in config.items():
+        ClassNode = Node.create_node(key)
+        node = ClassNode()
 
-        inputs = node.INPUT_TYPES()
-        node_name = inputs["required"]["name"][1]["default"]
-        required_keys = [k for k in inputs.get("required", []) if k != "name"]
+        node_name = value.get("name", key)
+        inputs = node.build_inputs()["required"]
+        prompt = node.build_prompt(seed=seed)
 
-        print("---")
-        print(node_name)
-        print("inputs:", required_keys)
-        print("prompt:", node.build_prompt(**config_args))
+        print(f"{node_name:<17}{prompt[0]}")
+        if with_inputs:
+            for sub_key, sub_value in inputs.items():
+                print(f"> {sub_key:<15}{sub_value[0]}")
+            print("---")
 
 
 if __name__ == "__main__":
 
-    parser = argparse.ArgumentParser(description="Process some integers.")
+    parser = argparse.ArgumentParser(
+        description="Generate a prompt from a node."
+    )
 
     parser.add_argument(
-        '-s', '--seed',
+        "-s", "--seed",
         type=int,
-        default=1,
-        help='Seed value'
+        default=0,
+        help="Seed value for random number generator"
+    )
+
+    parser.add_argument(
+        "-i", "--inputs",
+        action="store_true",
+        help="Display inputs for each node"
     )
 
     args = parser.parse_args()
-
-    main(args.seed)
+    main(seed=args.seed, with_inputs=args.inputs)
