@@ -16,13 +16,19 @@ def main(seed, with_inputs):
         node = ClassNode()
 
         node_name = value.get("name", key)
-        inputs = node.build_inputs()["required"]
+        inputs = node.INPUT_TYPES()["required"]
         prompt = node.build_prompt(seed=seed)
 
         print(f"{node_name:<16}{prompt[0]}")
+
+        # Optionally display inputs
         if with_inputs:
             for sub_key, sub_value in inputs.items():
-                print(f"> {sub_key:<15}{sub_value[0]}")
+                if isinstance(sub_value[0], list):
+                    sub_value = sub_value[0]
+                elif isinstance(sub_value[0], str):
+                    sub_value = sub_value[1]["default"]
+                print(f"> {sub_key:<15}{sub_value}")
             print("---")
 
 
