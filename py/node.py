@@ -129,16 +129,12 @@ class Node:
                     # according to the JSON config file
                     case "random":
 
-                        if isinstance(value, str):
-                            applied_values[key] = value
-
-                        if isinstance(value, list):
-                            value = [v for v in value if v not in [
-                                "random", "none"]]
+                        if isinstance(value, (str, list)):
                             applied_values[key] = value
 
                         if isinstance(value, dict):
-                            if "tags" in value:
+                            if ("tags" in value
+                                    and isinstance(value["tags"], list)):
                                 applied_values[key] = value
                             else:
                                 traverse(value)
@@ -148,9 +144,14 @@ class Node:
                         applied_values[key] = selected
 
                         # (Handle selected grouped tags)
-                        if (isinstance(value, dict) and "tags" in value):
-                            if (isinstance(value["tags"], dict)):
+                        if isinstance(value, dict):
+                            if ("tags" in value
+                                    and isinstance(value["tags"], dict)):
                                 applied_values[key] = value["tags"][selected]
+                            prefix = value.get("prefix", "")
+                            suffix = value.get("suffix", "")
+
+                            applied_values[key] = f"{prefix}{selected}{suffix}"
 
         traverse(data)
         return applied_values
