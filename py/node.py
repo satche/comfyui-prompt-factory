@@ -233,6 +233,8 @@ class Node:
                         p=d,
                         replace=False,
                     )
+                    selected_tags = sorted(
+                        selected_tags, key=lambda x: tags.index(x))
 
                 # Recursive choice (grouped tag)
                 else:
