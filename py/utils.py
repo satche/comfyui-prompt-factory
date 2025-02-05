@@ -12,7 +12,8 @@ def load_nodes_config():
     Load and merge all node's config files
     """
     config_path = get_config_path()
-    config_files = glob(os.path.join(config_path, "*.json"))
+    config_files = glob(os.path.join(
+        config_path, "**", "*.json"), recursive=True)
 
     config = {}
     for path in config_files:
