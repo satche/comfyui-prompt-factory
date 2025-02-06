@@ -1,7 +1,7 @@
 [project]
 name = "comfyui-prompt-factory"
 description = "A modular system that adds randomness to prompt generation"
-version = "0.0.1"
+version = "0.1.0"
 license = { file = "LICENSE" }
 dependencies = ["dpath==2.2.0", "numpy==2.1.3"]
 
