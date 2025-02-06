@@ -8,7 +8,8 @@ RESERVED_KEYS = [
     "separator",
     "probability",
     "distribution",
-    "number"
+    "number",
+    "hide"
 ]
 
 
@@ -42,6 +43,12 @@ class Node:
 
             match value:
 
+                # Handle boolean
+                case bool():
+                    inputs["required"][key] = ("BOOLEAN", {
+                        "default": value
+                    })
+
                 # Handle strings
                 case str():
                     inputs["required"][key] = ("STRING", {
@@ -57,22 +64,24 @@ class Node:
                         "default": value[0] if value else ""
                     })
 
-                # Handle dict recursively
+                # Handle dict
                 case dict():
                     if "hide" in value and value["hide"]:
                         return
 
                     if "tags" in value:
+
                         match value["tags"]:
+
+                            # If tags is a list, just return it
+                            # with all parameters from the dict
                             case list():
                                 process_value(key, value["tags"])
+
+                            # If tags has other sub-tags,
+                            # create a simple enable/disable checkbox
                             case dict():
-                                process_value(key, list(value["tags"].keys()))
-                    else:
-                        for child_key, child_value in dpath.search(
-                                value, '*', yielded=True):
-                            if child_key not in RESERVED_KEYS:
-                                process_value(child_key, child_value)
+                                process_value(key, True)
 
         if not self.data.get("hide", False):
             for key, value in dpath.search(
@@ -117,7 +126,15 @@ class Node:
         def traverse(data):
 
             for key, value in data.items():
+
                 selected = inputs.get(key, "random")
+
+                if selected is False:
+                    continue
+
+                if "tags" in value and isinstance(value["tags"], dict):
+                    applied_values[key] = value
+                    continue
 
                 match selected:
 
@@ -142,7 +159,7 @@ class Node:
                     case _:
                         applied_values[key] = selected
 
-                        # (Handle selected grouped tags)
+                        # Handle selected grouped tags
                         if isinstance(value, dict):
                             if ("tags" in value
                                     and isinstance(value["tags"], dict)):

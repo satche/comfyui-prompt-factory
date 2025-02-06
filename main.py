@@ -30,6 +30,8 @@ def main(seed, with_inputs):
                     sub_value = sub_value[0]
                 elif isinstance(sub_value[0], str):
                     sub_value = sub_value[1]["default"]
+                    if sub_value is True:
+                        sub_value = "Boolean"
                 print(f"> {sub_key:<15}{sub_value}")
             print("---")
 
