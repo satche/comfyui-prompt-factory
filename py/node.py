@@ -266,7 +266,7 @@ class Node:
                 ]
 
                 # Clean up
-                separator = data.get("separator", " ")
+                separator = data.get("separator", ",")
                 selected_tags = self.stringify_tags(selected_tags, separator)
 
         return selected_tags
