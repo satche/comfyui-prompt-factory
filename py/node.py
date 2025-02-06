@@ -159,6 +159,11 @@ class Node:
                     case _:
                         applied_values[key] = selected
 
+                        # If value is True, return the tags
+                        if selected is True:
+                            applied_values[key] = value
+                            continue
+
                         # Handle selected grouped tags
                         if (isinstance(value, dict) and
                             "tags" in value and
