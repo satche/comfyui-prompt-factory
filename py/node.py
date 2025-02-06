@@ -80,8 +80,9 @@ class Node:
 
                             # If tags has other sub-tags…
                             case dict():
-
-                                if value["group_labels"]:
+                                display_group_labels = value.get(
+                                    "group_labels", False)
+                                if display_group_labels:
                                     # show the keys as input's label
                                     process_value(
                                         key, list(value["tags"].keys()))
