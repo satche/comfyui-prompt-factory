@@ -10,10 +10,15 @@
       "probability": 0.5,
       "tags": ["from above", "from below", "from side", "from behind"]
     },
-    "render": {
-      "probability": 0.5,
-      "number": [1, 3],
-      "tags": ["depth of field", "light particles", "lens flare"]
+    "effects": {
+      "number": [1, 2],
+      "tags": {
+        "light": {
+          "number": [1, 2],
+          "tags": ["light particles", "lens flare"]
+        },
+        "depth": "depth of field"
+      }
     }
   }
 }
