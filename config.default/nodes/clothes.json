@@ -10,6 +10,7 @@
   },
   "tags": {
     "type": {
+      "group_labels": true,
       "tags": {
         "casual": "{color} {top}, {color} {bottom}",
         "swimsuit": "{color} {swimsuit}",

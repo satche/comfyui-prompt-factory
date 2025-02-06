@@ -1,10 +1,5 @@
 {
   "name": "👤 Character",
-  "variables": {
-    "hide": true,
-    "color-natural": ["dark", "tanned", "pale"],
-    "color-special": ["red", "green", "blue", "pink"]
-  },
   "tags": {
     "body_type": {
       "probability": 0.7,
@@ -13,9 +8,29 @@
     "skin": {
       "probability": 0.7,
       "suffix": " skin",
-      "distribution": [0.9, 0.1],
-      "tags": ["{color-natural}", "{color-special}"]
+      "tags": ["dark", "tanned", "pale"]
     },
-    "attitude": ["smiling", "bored", "upset", "sad"]
+    "eyes": {
+      "distribution": [0.25, 0.25, 0.2, 0.2, 0.1],
+      "tags": ["black", "brown", "blue", "green", "red"],
+      "suffix": " eyes"
+    },
+    "hair_color": {
+      "distribution": [0.25, 0.25, 0.25, 0.15, 0.1],
+      "tags": ["black", "brown", "blonde", "ginger", "gray"],
+      "suffix": " hair"
+    },
+    "hair_length": {
+      "tags": ["short", "medium", "long", "very long"],
+      "suffix": " hair"
+    },
+    "hair_style": {
+      "tags": ["straight", "wavy", "curly"],
+      "suffix": " hair"
+    },
+    "attitude": {
+      "distribution": [0.8],
+      "tags": ["smiling", "bored", "upset", "sad"]
+    }
   }
 }
