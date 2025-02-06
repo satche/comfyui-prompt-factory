@@ -2,7 +2,8 @@
   "name": "👕 Clothes",
   "variables": {
     "hide": true,
-    "color": ["red", "blue", "green", "yellow"],
+    "color_1": ["red", "blue", "green", "yellow"],
+    "color_2": ["black", "white", "gray", "brown"],
     "top": ["t-shirt", "tank top"],
     "bottom": ["jeans", "shorts"],
     "swimsuit": ["one-piece swimsuit", "bikini"],
@@ -12,9 +13,9 @@
     "type": {
       "group_labels": true,
       "tags": {
-        "casual": "{color} {top}, {color} {bottom}",
-        "swimsuit": "{color} {swimsuit}",
-        "uniform": "{color} uniform, {uniform} uniform"
+        "casual": "{color_1} {top}, {color_2} {bottom}",
+        "swimsuit": "{color_1} {swimsuit}",
+        "uniform": "{color_1} uniform, {uniform} uniform"
       }
     },
     "accessories": {
