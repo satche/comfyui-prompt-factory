@@ -160,7 +160,9 @@ class Node:
                         applied_values[key] = selected
 
                         # Handle selected grouped tags
-                        if isinstance(value, dict):
+                        if (isinstance(value, dict) and
+                            "tags" in value and
+                                isinstance(value["tags"], dict)):
                             applied_values[key] = value["tags"][selected]
 
         traverse(data)
