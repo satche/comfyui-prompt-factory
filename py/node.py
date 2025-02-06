@@ -136,17 +136,10 @@ class Node:
 
                 selected = inputs.get(key, "random")
 
-                if selected is False:
-                    continue
-
-                if "tags" in value and isinstance(value["tags"], dict):
-                    applied_values[key] = value
-                    continue
-
                 match selected:
 
-                    # If "none", just ignore the tag
-                    case "none":
+                    # If "none" or false, just ignore the tag
+                    case "none" | False:
                         continue
 
                     # If "random", return the string, list or dict
@@ -168,13 +161,7 @@ class Node:
 
                         # Handle selected grouped tags
                         if isinstance(value, dict):
-                            if ("tags" in value
-                                    and isinstance(value["tags"], dict)):
-                                applied_values[key] = value["tags"][selected]
-                            prefix = value.get("prefix", "")
-                            suffix = value.get("suffix", "")
-
-                            applied_values[key] = f"{prefix}{selected}{suffix}"
+                            applied_values[key] = value["tags"][selected]
 
         traverse(data)
         return applied_values
