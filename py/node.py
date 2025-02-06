@@ -78,10 +78,16 @@ class Node:
                             case list():
                                 process_value(key, value["tags"])
 
-                            # If tags has other sub-tags,
-                            # create a simple enable/disable checkbox
+                            # If tags has other sub-tags…
                             case dict():
-                                process_value(key, True)
+
+                                if value["group_labels"]:
+                                    # show the keys as input's label
+                                    process_value(
+                                        key, list(value["tags"].keys()))
+                                else:
+                                    # create a simple enable/disable checkbox
+                                    process_value(key, True)
 
         if not self.data.get("hide", False):
             for key, value in dpath.search(
