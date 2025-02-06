@@ -1,46 +1,172 @@
 {
-  "last_node_id": 43,
-  "last_link_id": 38,
+  "last_node_id": 56,
+  "last_link_id": 64,
   "nodes": [
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        738,
+        527
+      ],
+      "size": [
+        210,
+        106
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "links": [
+            2
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
     {
       "id": 20,
       "type": "Note",
       "pos": [
-        25,
-        53
+        28.615943908691406,
+        52.70095443725586
       ],
       "size": [
-        278.639404296875,
-        193.28993225097656
+        432.2853088378906,
+        194.93133544921875
       ],
       "flags": {
         "collapsed": true
       },
-      "order": 0,
+      "order": 1,
       "mode": 0,
       "inputs": [],
       "outputs": [],
       "title": "📖 README",
       "properties": {},
       "widgets_values": [
-        "Here's a simple workflow to test the Prompt Factory custom nodes\n\nJust queue a prompt: the components will randomly generate an image for you!\n\nYou can then change a single element of the generated image by changing a single node's seed.\n\nFor example, try to change [👤 Character] node's seed. The whole scene stay the same, but the character has changed."
+        "Hi! Here's a simple showcase for the Prompt Factory nodes\n\nJust play with the node's parameters below and see how the elements change in the generation.\n\nYou can check this custom node's folder and change the config files to edit and create your own nodes!\n\nFor more info, check out these links:\n\nSource code: https://github.com/satche/comfyui-prompt-factory\nWiki:        https://github.com/satche/comfyui-prompt-factory/wiki\nRoadmap:     https://github.com/users/satche/projects/5/"
       ],
       "color": "#432",
       "bgcolor": "#653"
     },
     {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1271,
+        180.94573974609375
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            9
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        738,
+        352
+      ],
+      "size": [
+        210,
+        119.52225494384766
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "links": [
+            6
+          ],
+          "slot_index": 0
+        }
+      ],
+      "title": "Negative",
+      "properties": {
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "score_6, score_5, score_4"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 4,
       "type": "CheckpointLoaderSimple",
       "pos": [
-        48,
-        554
+        419.45562744140625,
+        110.38969421386719
       ],
       "size": [
-        291.7601318359375,
+        288.1031188964844,
         98
       ],
       "flags": {},
-      "order": 1,
+      "order": 2,
       "mode": 0,
       "inputs": [],
       "outputs": [
@@ -80,54 +206,113 @@
       "bgcolor": "#593930"
     },
     {
-      "id": 7,
-      "type": "CLIPTextEncode",
+      "id": 30,
+      "type": "MergeStrings",
       "pos": [
-        406,
-        698
+        414.95904541015625,
+        381.5138244628906
       ],
       "size": [
         210,
-        119.52225494384766
+        138
       ],
-      "flags": {
-        "collapsed": true
-      },
+      "flags": {},
       "order": 8,
       "mode": 0,
       "inputs": [
         {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5
+          "name": "string_1",
+          "type": "STRING",
+          "link": 60
+        },
+        {
+          "name": "string_2",
+          "type": "STRING",
+          "link": 61
+        },
+        {
+          "name": "string_3",
+          "type": "STRING",
+          "link": 62
+        },
+        {
+          "name": "string_4",
+          "type": "STRING",
+          "link": 63
+        },
+        {
+          "name": "string",
+          "type": "STRING",
+          "link": null
         }
       ],
       "outputs": [
         {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
+          "name": "string",
+          "type": "STRING",
           "links": [
-            6
+            28,
+            64
           ],
           "slot_index": 0
         }
       ],
-      "title": "Negative",
       "properties": {
-        "Node name for S&R": "CLIPTextEncode"
+        "Node name for S&R": "MergeStrings"
       },
       "widgets_values": [
-        ""
+        ", "
+      ]
+    },
+    {
+      "id": 56,
+      "type": "ShowText|pysssss",
+      "pos": [
+        1286.1868896484375,
+        596.7202758789062
       ],
-      "color": "#322",
-      "bgcolor": "#533"
+      "size": [
+        319.9373779296875,
+        170.79751586914062
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 64,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Output",
+      "properties": {
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "score_9, score_8_up, score_7_up, straight-on, depth of field, slim, tanned skin, blue eyes, brown hair, short hair, wavy hair, smiling, green t-shirt, white jeans, park, sunny"
+      ],
+      "color": "#2a363b",
+      "bgcolor": "#3f5159"
     },
     {
       "id": 6,
       "type": "CLIPTextEncode",
       "pos": [
-        404,
-        568
+        786.80126953125,
+        304
       ],
       "size": [
         210,
@@ -136,7 +321,7 @@
       "flags": {
         "collapsed": true
       },
-      "order": 10,
+      "order": 9,
       "mode": 0,
       "inputs": [
         {
@@ -147,7 +332,7 @@
         {
           "name": "text",
           "type": "STRING",
-          "link": 25,
+          "link": 28,
           "widget": {
             "name": "text"
           }
@@ -174,49 +359,126 @@
       "bgcolor": "#353"
     },
     {
-      "id": 5,
-      "type": "EmptyLatentImage",
+      "id": 51,
+      "type": "character",
       "pos": [
-        54,
-        709
+        32.17244338989258,
+        350.93524169921875
       ],
       "size": [
-        279.170166015625,
-        106
+        315,
+        250
       ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 2,
+      "flags": {},
+      "order": 3,
       "mode": 0,
       "inputs": [],
       "outputs": [
         {
-          "name": "LATENT",
-          "type": "LATENT",
+          "name": "STRING",
+          "type": "STRING",
           "links": [
-            2
+            46,
+            52,
+            57,
+            61
           ],
           "slot_index": 0
         }
       ],
       "properties": {
-        "Node name for S&R": "EmptyLatentImage"
+        "Node name for S&R": "character"
       },
       "widgets_values": [
-        1024,
-        1024,
-        1
+        "slim",
+        "tanned",
+        "blue",
+        "random",
+        "random",
+        "wavy",
+        "smiling",
+        0,
+        "fixed"
+      ]
+    },
+    {
+      "id": 48,
+      "type": "clothes",
+      "pos": [
+        28.805156707763672,
+        666.41552734375
       ],
-      "color": "#323",
-      "bgcolor": "#535"
+      "size": [
+        315,
+        130
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            44,
+            62
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "clothes"
+      },
+      "widgets_values": [
+        "casual",
+        "random",
+        0,
+        "fixed"
+      ]
+    },
+    {
+      "id": 49,
+      "type": "environment",
+      "pos": [
+        32.389686584472656,
+        850
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            48,
+            59,
+            63
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "environment"
+      },
+      "widgets_values": [
+        "random",
+        0,
+        "fixed"
+      ]
     },
     {
       "id": 3,
       "type": "KSampler",
       "pos": [
-        583,
-        652
+        985,
+        273
       ],
       "size": [
         267,
@@ -261,123 +523,27 @@
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
-        480129264503111,
+        0,
         "fixed",
-        25,
+        30,
         5,
-        "euler_ancestral",
-        "normal",
+        "euler",
+        "karras",
         1
       ],
       "color": "#223",
       "bgcolor": "#335"
     },
     {
-      "id": 28,
-      "type": "Multi Text Merge",
-      "pos": [
-        1838,
-        416
-      ],
-      "size": [
-        210,
-        158
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "s1",
-          "type": "STRING",
-          "link": 34,
-          "widget": {
-            "name": "s1"
-          },
-          "shape": 7
-        },
-        {
-          "name": "s2",
-          "type": "STRING",
-          "link": 35,
-          "widget": {
-            "name": "s2"
-          },
-          "shape": 7
-        },
-        {
-          "name": "s3",
-          "type": "STRING",
-          "link": 36,
-          "widget": {
-            "name": "s3"
-          },
-          "shape": 7
-        },
-        {
-          "name": "s4",
-          "type": "STRING",
-          "link": 37,
-          "widget": {
-            "name": "s4"
-          },
-          "shape": 7
-        },
-        {
-          "name": "s5",
-          "type": "STRING",
-          "link": 38,
-          "widget": {
-            "name": "s5"
-          },
-          "shape": 7
-        },
-        {
-          "name": "s6",
-          "type": "STRING",
-          "link": null,
-          "widget": {
-            "name": "s6"
-          },
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            25
-          ],
-          "slot_index": 0
-        }
-      ],
-      "title": "Merge",
-      "properties": {
-        "Node name for S&R": "Multi Text Merge"
-      },
-      "widgets_values": [
-        ", ",
-        "",
-        "",
-        "",
-        "",
-        "",
-        ""
-      ]
-    },
-    {
       "id": 9,
       "type": "SaveImage",
       "pos": [
-        1050,
-        557
+        1280,
+        240
       ],
       "size": [
-        406.0296936035156,
-        381.2013854980469
+        327,
+        302.48333740234375
       ],
       "flags": {},
       "order": 13,
@@ -398,168 +564,15 @@
       "bgcolor": "#355"
     },
     {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        882,
-        625
-      ],
-      "size": [
-        210,
-        46
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 8
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            9
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": [],
-      "color": "#233",
-      "bgcolor": "#355"
-    },
-    {
-      "id": 37,
+      "id": 55,
       "type": "composition",
       "pos": [
-        27,
-        96
+        28.91377830505371,
+        100.4480209350586
       ],
       "size": [
-        315.5716552734375,
-        199.71226501464844
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            34
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "composition"
-      },
-      "widgets_values": [
-        "score_9, score_8_up, score_7_up, source_anime",
-        "portrait",
-        "straight on",
-        112085706843169,
-        "fixed"
-      ]
-    },
-    {
-      "id": 38,
-      "type": "action",
-      "pos": [
-        389,
-        96
-      ],
-      "size": [
-        315,
-        154
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            35
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "action"
-      },
-      "widgets_values": [
-        "1girl",
-        "standing",
-        "adjusting hair",
-        145508923502853,
-        "fixed"
-      ]
-    },
-    {
-      "id": 42,
-      "type": "clothes",
-      "pos": [
-        1129,
-        96
-      ],
-      "size": [
-        315,
-        154
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            37
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "clothes"
-      },
-      "widgets_values": [
-        "random",
-        "random",
-        "random",
-        591005785236108,
-        "fixed"
-      ]
-    },
-    {
-      "id": 43,
-      "type": "environment",
-      "pos": [
-        1495,
-        96
-      ],
-      "size": [
-        315,
-        154
+        325.05072021484375,
+        196
       ],
       "flags": {},
       "order": 6,
@@ -570,59 +583,19 @@
           "name": "STRING",
           "type": "STRING",
           "links": [
-            38
-          ],
-          "slot_index": 0
+            60
+          ]
         }
       ],
       "properties": {
-        "Node name for S&R": "environment"
+        "Node name for S&R": "composition"
       },
       "widgets_values": [
-        "beach",
-        "day",
-        "sunny",
-        940650543974596,
-        "fixed"
-      ]
-    },
-    {
-      "id": 41,
-      "type": "charcter",
-      "pos": [
-        754,
-        96
-      ],
-      "size": [
-        315,
-        250
-      ],
-      "flags": {},
-      "order": 7,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            36
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "charcter"
-      },
-      "widgets_values": [
-        "none",
+        "score_9, score_8_up, score_7_up",
         "random",
         "random",
-        "random",
-        "random",
-        "random",
-        "smiling",
-        698883261201798,
+        true,
+        0,
         "fixed"
       ]
     }
@@ -701,51 +674,99 @@
       "IMAGE"
     ],
     [
-      25,
       28,
+      30,
       0,
       6,
       1,
       "STRING"
     ],
     [
-      34,
-      37,
+      44,
+      48,
       0,
-      28,
-      0,
-      "STRING"
-    ],
-    [
-      35,
-      38,
-      0,
-      28,
+      30,
       1,
       "STRING"
     ],
     [
-      36,
-      41,
+      46,
+      51,
       0,
-      28,
+      30,
+      0,
+      "STRING"
+    ],
+    [
+      48,
+      49,
+      0,
+      30,
+      1,
+      "STRING"
+    ],
+    [
+      52,
+      51,
+      0,
+      30,
+      0,
+      "STRING"
+    ],
+    [
+      57,
+      51,
+      0,
+      30,
+      0,
+      "STRING"
+    ],
+    [
+      59,
+      49,
+      0,
+      30,
+      1,
+      "STRING"
+    ],
+    [
+      60,
+      55,
+      0,
+      30,
+      0,
+      "STRING"
+    ],
+    [
+      61,
+      51,
+      0,
+      30,
+      1,
+      "STRING"
+    ],
+    [
+      62,
+      48,
+      0,
+      30,
       2,
       "STRING"
     ],
     [
-      37,
-      42,
+      63,
+      49,
       0,
-      28,
+      30,
       3,
       "STRING"
     ],
     [
-      38,
-      43,
+      64,
+      30,
       0,
-      28,
-      4,
+      56,
+      0,
       "STRING"
     ]
   ],
@@ -753,97 +774,46 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7172020933638794,
+      "scale": 0.7608450408088964,
       "offset": [
-        71.32616509541529,
-        76.17304626730547
+        123.9790244167516,
+        7.02428761133992
       ]
     },
     "linkExtensions": [
       {
-        "id": 25,
-        "parentId": 9
-      },
-      {
-        "id": 34,
-        "parentId": 10
-      },
-      {
-        "id": 35,
-        "parentId": 11
-      },
-      {
-        "id": 36,
-        "parentId": 12
-      },
-      {
-        "id": 37,
-        "parentId": 13
+        "id": 64,
+        "parentId": 4
       }
     ],
     "reroutes": [
       {
-        "id": 7,
+        "id": 3,
         "pos": [
-          1924.9061279296875,
-          466.8276672363281
+          672.64404296875,
+          658.0612182617188
         ],
         "linkIds": [
-          25
+          64
         ]
       },
       {
-        "id": 9,
-        "parentId": 7,
+        "id": 4,
+        "parentId": 3,
         "pos": [
-          382.01202392578125,
-          500.9316711425781
+          1231.82958984375,
+          666.4246826171875
         ],
         "linkIds": [
-          25
-        ]
-      },
-      {
-        "id": 10,
-        "pos": [
-          383.2178649902344,
-          392.9479064941406
-        ],
-        "linkIds": [
-          34
-        ]
-      },
-      {
-        "id": 11,
-        "pos": [
-          751.3150634765625,
-          397.13092041015625
-        ],
-        "linkIds": [
-          35
-        ]
-      },
-      {
-        "id": 12,
-        "pos": [
-          1130.5667724609375,
-          405.4966125488281
-        ],
-        "linkIds": [
-          36
-        ]
-      },
-      {
-        "id": 13,
-        "pos": [
-          1465.20068359375,
-          385.9763488769531
-        ],
-        "linkIds": [
-          37
+          64
         ]
       }
-    ]
+    ],
+    "node_versions": {
+      "comfy-core": "0.3.14",
+      "comfyui-prompt-factory": "5bbaa59c4df6409c53f41a20fe1f81c6df707d27",
+      "ComfyUI-Universal-Styler": "bfe88489ff250a84bc25c210d84a58135f9a8a8f"
+    }
   },
   "version": 0.4
 }
