@@ -159,6 +159,12 @@ class Node:
                     case _:
                         applied_values[key] = selected
 
+                        # Add prefix and suffix if existing
+                        if isinstance(value, dict):
+                            prefix = value.get("prefix", "")
+                            suffix = value.get("suffix", "")
+                            applied_values[key] = f"{prefix}{selected}{suffix}"
+
                         # If value is True, return the tags
                         if selected is True:
                             applied_values[key] = value

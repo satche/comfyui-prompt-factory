@@ -8,7 +8,13 @@
     },
     "camera_angle": {
       "probability": 0.5,
-      "tags": ["from above", "from below", "from side", "from behind"]
+      "tags": [
+        "straight-on",
+        "from above",
+        "from below",
+        "from side",
+        "from behind"
+      ]
     },
     "effects": {
       "number": [1, 2],
