@@ -145,36 +145,26 @@ class Node:
                     # If "random", return the string, list or dict
                     # according to the JSON config file
                     case "random":
+                        applied_values[key] = value
 
-                        if isinstance(value, (str, list)):
-                            applied_values[key] = value
-
-                        if isinstance(value, dict):
-                            if "tags" in value:
-                                applied_values[key] = value
-                            else:
-                                traverse(value)
+                        if isinstance(value, dict) and not value.get("tags"):
+                            traverse(value)
 
                     # If a value is selected, just return it
                     case _:
                         applied_values[key] = selected
 
-                        # Add prefix and suffix if existing
+                        if selected is True:
+                            applied_values[key] = value
+                            continue
+
                         if isinstance(value, dict):
                             prefix = value.get("prefix", "")
                             suffix = value.get("suffix", "")
                             applied_values[key] = f"{prefix}{selected}{suffix}"
 
-                        # If value is True, return the tags
-                        if selected is True:
-                            applied_values[key] = value
-                            continue
-
-                        # Handle selected grouped tags
-                        if (isinstance(value, dict) and
-                            "tags" in value and
-                                isinstance(value["tags"], dict)):
-                            applied_values[key] = value["tags"][selected]
+                            if isinstance(value.get("tags"), dict):
+                                applied_values[key] = value["tags"][selected]
 
         traverse(data)
         return applied_values
@@ -188,92 +178,86 @@ class Node:
         """
 
         selected_tags = []
-        match data:
 
-            case str():
-                selected_tags = data
+        if isinstance(data, (str, list)):
+            data = {"tags": data}
 
-            case list():
-                selected_tags = rng.choice(data)
+        # Probability
+        p = data.get("probability", 1)
+        if rng.random() > p:
+            return ""
 
-            case dict():
+        # Tag selection
+        tags = data.get("tags", [])
+        prefix = data.get("prefix", "")
+        suffix = data.get("suffix", "")
 
-                # Probability
-                p = data.get("probability", 1)
-                if rng.random() > p:
-                    return ""
+        if isinstance(tags, str):
+            tags = [tags]
 
-                # Tag selection
-                tags = data.get("tags", [])
-                prefix = data.get("prefix", "")
-                suffix = data.get("suffix", "")
+        if isinstance(tags, dict):
+            if tags.get("tags"):
+                tags = self.select_tags(rng, tags)
+            else:
+                subtags = []
+                for subtag in tags.values():
+                    subtags.append(self.select_tags(rng, subtag))
+                tags = subtags
 
-                if isinstance(tags, str):
-                    tags = [tags]
+        # Number of tags to select
+        n = data.get("number", 1)
+        if isinstance(n, int) and n > len(tags):
+            n = len(tags)
 
-                if isinstance(tags, dict):
-                    if tags.get("tags"):
-                        tags = self.select_tags(rng, tags)
-                    else:
-                        subtags = []
-                        for subtag in tags.values():
-                            subtags.append(self.select_tags(rng, subtag))
-                        tags = subtags
+        # If n is a list, choose a
+        # random number between the 2 first values
+        if isinstance(n, list):
+            min_n = n[0]
+            max_n = min(n[1], len(tags))
+            n = rng.integers(int(min_n), int(max_n))
 
-                # Number of tags to select
-                n = data.get("number", 1)
-                if isinstance(n, int) and n > len(tags):
-                    n = len(tags)
+        # Distribution: how likely each tag is to be selected
+        # Normalize the distribution so the sum = 1
+        # Add missing values if necessary
+        d = data.get("distribution", np.ones(len(tags)))
+        if np.sum(d) > 1:
+            d = d / np.sum(d)
+            d = np.append(d, np.zeros(len(tags) - len(d)))
+        elif len(d) < len(tags):
+            n_remaining_tags = len(tags) - len(d)
+            remaining_d = 1 - np.sum(d)
+            d = np.append(
+                d, np.full(
+                    n_remaining_tags,
+                    remaining_d / n_remaining_tags
+                )
+            )
 
-                # If n is a list, choose a
-                # random number between the 2 first values
-                if isinstance(n, list):
-                    min_n = n[0]
-                    max_n = min(n[1], len(tags))
-                    n = rng.integers(int(min_n), int(max_n))
+        # Chose between the tags
+        if tags:
+            selected_tags = rng.choice(
+                tags,
+                size=n,
+                p=d,
+                replace=False,
+            )
+            selected_tags = sorted(
+                selected_tags, key=lambda x: tags.index(x))
 
-                # Distribution: how likely each tag is to be selected
-                # Normalize the distribution so the sum = 1
-                # Add missing values if necessary
-                d = data.get("distribution", np.ones(len(tags)))
-                if np.sum(d) > 1:
-                    d = d / np.sum(d)
-                    d = np.append(d, np.zeros(len(tags) - len(d)))
-                elif len(d) < len(tags):
-                    n_remaining_tags = len(tags) - len(d)
-                    remaining_d = 1 - np.sum(d)
-                    d = np.append(
-                        d, np.full(
-                            n_remaining_tags,
-                            remaining_d / n_remaining_tags
-                        )
-                    )
+        # Recursive choice (grouped tag)
+        else:
+            for key, value in data.items():
+                if key not in RESERVED_KEYS:
+                    selected_tags.append(self.select_tags(rng, value))
 
-                # Chose between the tags
-                if tags:
-                    selected_tags = rng.choice(
-                        tags,
-                        size=n,
-                        p=d,
-                        replace=False,
-                    )
-                    selected_tags = sorted(
-                        selected_tags, key=lambda x: tags.index(x))
+        # Add prefix and suffix
+        selected_tags = [
+            f"{prefix}{tag}{suffix}" for tag in selected_tags
+        ]
 
-                # Recursive choice (grouped tag)
-                else:
-                    for key, value in data.items():
-                        if key not in RESERVED_KEYS:
-                            selected_tags.append(self.select_tags(rng, value))
-
-                # Add prefix and suffix
-                selected_tags = [
-                    f"{prefix}{tag}{suffix}" for tag in selected_tags
-                ]
-
-                # Clean up
-                separator = data.get("separator", ",")
-                selected_tags = self.stringify_tags(selected_tags, separator)
+        # Clean up
+        separator = data.get("separator", ",")
+        selected_tags = self.stringify_tags(selected_tags, separator)
 
         return selected_tags
 
