@@ -43,20 +43,25 @@ class Node:
 
             match value:
 
-                # Handle boolean
                 case bool():
                     inputs["required"][key] = ("BOOLEAN", {
                         "default": value
                     })
 
-                # Handle strings
+                case float():
+                    inputs["required"][key] = ("FLOAT", {
+                        "default": value,
+                        "min": 0,
+                        "max": 1,
+                        "step": 0.1
+                    })
+
                 case str():
                     inputs["required"][key] = ("STRING", {
                         "default": value,
                         "multiline": True
                     })
 
-                # Handle list of strings
                 case list() if all(isinstance(item, str) for item in value):
                     value.insert(0, "random")
                     value.append("none")
@@ -64,7 +69,6 @@ class Node:
                         "default": value[0] if value else ""
                     })
 
-                # Handle dict
                 case dict():
                     if "hide" in value and value["hide"]:
                         return
@@ -82,10 +86,14 @@ class Node:
                             case dict():
                                 display_group_labels = value.get(
                                     "group_labels", False)
+                                probability_key = value.get("probability", 1)
+
                                 if display_group_labels:
                                     # show the keys as input's label
                                     process_value(
                                         key, list(value["tags"].keys()))
+                                elif probability_key:
+                                    process_value(key, probability_key)
                                 else:
                                     # create a simple enable/disable checkbox
                                     process_value(key, True)
