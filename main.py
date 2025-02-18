@@ -1,6 +1,6 @@
 import argparse
-from py.node import Node
-from py.utils import load_nodes_config
+from py.nodes.node_factory import NodeFactory
+from py.utils.config import load_nodes_config
 
 config = load_nodes_config()
 
@@ -12,7 +12,7 @@ def main(seed, with_inputs):
 
     # Create prompt for each node
     for key, value in config.items():
-        ClassNode = Node.create_node(key)
+        ClassNode = NodeFactory.create_node(key)
         node = ClassNode()
 
         node_name = value.get("name", key)

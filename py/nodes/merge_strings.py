@@ -3,7 +3,10 @@ from typing import Any, Dict, Tuple
 
 class MergeStrings:
     """
-    A class to represent a dynamic node in ComfyUI.
+    A ComfyUI node to merge string.
+    Inputs: strings (stacked)
+    Output: merged string
+    Check merge_strings.js for the frontend implementation.
     """
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("string",)
