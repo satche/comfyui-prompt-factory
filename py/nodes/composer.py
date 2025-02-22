@@ -55,7 +55,8 @@ class Composer:
         for key, value in self.data.items():
             if "variables" in self.data[key]:
                 for v_key, v_value in self.data[key]["variables"].items():
-                    variables[v_key] = select_tags(rng, v_value)
+                    if v_key not in RESERVED_KEYS:
+                        variables[v_key] = select_tags(rng, v_value, p=1)
         return variables
 
     def _extract_tags(self, rng):
