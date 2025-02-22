@@ -2,7 +2,7 @@ import numpy as np
 from py.utils.config import RESERVED_KEYS
 
 
-def select_tags(rng, data):
+def select_tags(rng, data, p=None):
     """
     Select tags randomly
     String: simply return the tags
@@ -16,7 +16,9 @@ def select_tags(rng, data):
         data = {"tags": data}
 
     # Probability
-    p = data.get("probability", 1)
+    if p is None:
+        p = data.get("probability", 1)
+        
     if rng.random() > p:
         return ""
 
