@@ -13,5 +13,5 @@ def main(seed, prompt):
 
 if __name__ == "__main__":
     seed = 0
-    prompt = "foo, bar, {makeup-color}, {makeup}, {eyewear-style}"
+    prompt = "foo, bar, {makeup-color}, {makeup}, {eyewear-shape}"
     main(seed, prompt)
