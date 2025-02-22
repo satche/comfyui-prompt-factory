@@ -67,10 +67,17 @@ class NodeFactory:
         """
         Replace {tags} with corresponding variable
         """
+        
+        if isinstance(tags, str):
+            for var_key, var_value in variables.items():
+                tags = tags.replace("{"+var_key+"}", f"{var_value}")
+            return [tags]
+        
         for key, value in tags.items():
             for var_key, var_value in variables.items():
                 value = value.replace("{"+var_key+"}", f"{var_value}")
             tags[key] = value
+            
         return tags
 
     __all__ = ["NodeFactory"]
