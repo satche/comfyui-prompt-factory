@@ -1,5 +1,5 @@
 import numpy as np
-from py.utils.config import RESERVED_KEYS
+from ...utils.config import RESERVED_KEYS
 
 
 def select_tags(rng, data, p=None):

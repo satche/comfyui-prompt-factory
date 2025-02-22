@@ -15,7 +15,8 @@ RESERVED_KEYS = [
     "probability",
     "distribution",
     "number",
-    "hide"
+    "hide",
+    "group_labels"
 ]
 
 
