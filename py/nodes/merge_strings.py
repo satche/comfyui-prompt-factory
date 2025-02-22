@@ -1,6 +1,3 @@
-from typing import Any, Dict, Tuple
-
-
 class MergeStrings:
     """
     A ComfyUI node to merge string.
@@ -14,14 +11,15 @@ class MergeStrings:
     CATEGORY = "⚙️ Prompt Factory/🛠️ Utils"
 
     @classmethod
-    def INPUT_TYPES(s) -> Dict[str, dict]:
+    def INPUT_TYPES(s):
         return {
             "required": {
-                "separator": ("STRING", {"default": ", "})},
+                "separator": ("STRING", {"default": ", "})
+            },
             "optional": {}
         }
 
-    def merge_strings(self, separator, **kwargs) -> Tuple[Any | None]:
+    def merge_strings(self, separator, **kwargs):
         value = separator.join(
             v for v in kwargs.values()
             if isinstance(v, str)
