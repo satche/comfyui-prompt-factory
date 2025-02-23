@@ -21,7 +21,7 @@ def main(seed, with_inputs):
             del inputs["seed"]
         prompt = node.build_prompt(seed=seed)
 
-        print(f"{node_name:<16}{prompt[0]}")
+        print(f"{node_name:<20} {prompt[0]}")
 
         # Optionally display inputs
         if with_inputs:
@@ -32,7 +32,7 @@ def main(seed, with_inputs):
                     sub_value = sub_value[1]["default"]
                     if sub_value is True:
                         sub_value = "Boolean"
-                print(f"> {sub_key:<15}{sub_value}")
+                print(f"> {sub_key:<20} {sub_value}")
             print("---")
 
 
