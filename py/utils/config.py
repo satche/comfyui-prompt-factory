@@ -16,7 +16,8 @@ RESERVED_KEYS = [
     "distribution",
     "number",
     "hide",
-    "group_labels"
+    "group_labels",
+    "fixed"
 ]
 
 

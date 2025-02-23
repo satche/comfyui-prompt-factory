@@ -21,7 +21,7 @@ def select_tags(rng, data, p=None):
         
     if rng.random() > p:
         return ""
-
+    
     # Tag selection
     tags = data.get("tags", [])
     prefix = data.get("prefix", "")

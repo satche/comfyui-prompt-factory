@@ -45,8 +45,13 @@ class NodeFactory:
         variables = {}
         if "variables" in self.data:
             for key, value in self.data["variables"].items():
+                if isinstance(value, dict):
+                    fixed = value.get("fixed", True)
+                    if fixed is False:
+                        variables[key] = value
+                        continue
                 variables[key] = select_tags(rng, value)
-            tags = self.apply_variables(tags, variables)
+            tags = self.apply_variables(rng, tags, variables)
 
         # Build and clean-up final prompt
         prompt = stringify_tags(tags.values(), ", ")
@@ -63,21 +68,25 @@ class NodeFactory:
         })
 
     @staticmethod
-    def apply_variables(tags, variables):
+    def apply_variables(rng, tags, variables):
         """
         Replace {tags} with corresponding variable
         """
-        
+        def replace_variables(text, variables):
+            for var_key, var_value in variables.items():
+                count = text.count("{" + var_key + "}")
+                for _ in range(count):
+                    var_value = select_tags(rng, variables[var_key])
+                    text = text.replace("{" + var_key + "}", f"{var_value}", 1)
+            return text
+
         if isinstance(tags, str):
-            for var_key, var_value in variables.items():
-                tags = tags.replace("{"+var_key+"}", f"{var_value}")
-            return [tags]
-        
+            return [replace_variables(tags, variables)]
+
+        replaced_tags = {}
         for key, value in tags.items():
-            for var_key, var_value in variables.items():
-                value = value.replace("{"+var_key+"}", f"{var_value}")
-            tags[key] = value
+            replaced_tags[key] = replace_variables(value, variables)
             
-        return tags
+        return replaced_tags
 
     __all__ = ["NodeFactory"]
