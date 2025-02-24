@@ -1,7 +1,12 @@
 import numpy as np
 
-from ..utils.config import load_nodes_config, RESERVED_KEYS
-from .node_factory import NodeFactory
+from ..utils.config import (
+    load_nodes_config,
+    load_variables_config,
+    RESERVED_KEYS
+)
+
+from .node_factory._variables import process_variables, apply_variables
 from .node_factory._tags import select_tags
 
 
@@ -37,27 +42,38 @@ class Composer:
 
     def build_prompt(self, **args):
         """
-        Build the prompt according to the node inputs
-        Concatenate the tags and return the prompt
+        Transform tags, subtags and variables as reusable {variables}
+        Return the prompt with the variables replaced
         """
         rng = np.random.default_rng(args["seed"])
-        variables = self._extract_variables(rng)
-        tags = self._extract_tags(rng)
+        
+        # Extract global and local variables
+        global_variables = load_variables_config()
+        local_variables = self._extract_local_variables(rng, global_variables)
+        variables = {**global_variables, **local_variables}
 
-        variables = {**tags, **variables}
+        # Also transforms tags as variables
+        tags = self._extract_tags(rng)
+        processed_tags = apply_variables(rng, tags, variables)
+
+        # Merge everything and replace in prompt
+        variables = {**variables, **processed_tags}        
         prompt = args["prompt"]
-        prompt = NodeFactory.apply_variables(prompt, variables)
+        prompt = apply_variables(rng, prompt, variables)
 
         return (prompt,)
 
-    def _extract_variables(self, rng):
-        variables = {}
-        for key, value in self.data.items():
+    def _extract_local_variables(self, rng, global_variables):
+        processed_variables = {}
+        for key in self.data.keys():
             if "variables" in self.data[key]:
-                for v_key, v_value in self.data[key]["variables"].items():
-                    if v_key not in RESERVED_KEYS:
-                        variables[v_key] = select_tags(rng, v_value, p=1)
-        return variables
+                local_variables = process_variables(
+                    rng, self.data[key]["variables"])
+                new_variable = apply_variables(
+                    rng, local_variables, global_variables)
+                processed_variables.update(new_variable)
+
+        return processed_variables
 
     def _extract_tags(self, rng):
         tags = {}
