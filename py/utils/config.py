@@ -5,8 +5,9 @@ from glob import glob
 ROOT_PATH = os.path.abspath(os.path.join(
     os.path.dirname(__file__), '..', '..'))
 
-DEFAULT_PATH = "config.default/nodes"
-CUSTOM_PATH = "config/nodes"
+DEFAULT_PATH = "config.default"
+CUSTOM_PATH = "config"
+VARIABLE_FILE = "variables.json"
 
 RESERVED_KEYS = [
     "prefix",
@@ -21,9 +22,20 @@ RESERVED_KEYS = [
 ]
 
 
+def load_variables_config():
+    "Load variables config file"
+    config_path = chose_config()
+    config_path = os.path.join(config_path, VARIABLE_FILE)
+    if not os.path.exists(config_path):
+        return {}
+    with open(config_path, 'r') as config_file:
+        config_data = json.load(config_file)
+    return config_data
+
+
 def load_nodes_config():
     "Load and merge all node's config files"
-    config_path = chose_config()
+    config_path = chose_config("nodes")
     config_files = glob(os.path.join(
         config_path, "**", "*.json"), recursive=True)
 
@@ -37,7 +49,7 @@ def load_nodes_config():
     return config
 
 
-def chose_config():
+def chose_config(extra_path=""):
     "Chose between default and custom config"
     custom_config_path = os.path.join(ROOT_PATH, CUSTOM_PATH)
 
@@ -46,6 +58,6 @@ def chose_config():
     else:
         config_path = DEFAULT_PATH
 
-    absolute_config_path = os.path.join(ROOT_PATH, config_path)
+    absolute_config_path = os.path.join(ROOT_PATH, config_path, extra_path)
 
     return absolute_config_path

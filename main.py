@@ -14,7 +14,7 @@ def main(seed, with_inputs):
     for key, value in config.items():
         ClassNode = NodeFactory.create_node(key)
         node = ClassNode()
-
+        
         node_name = value.get("name", key)
         inputs = node.INPUT_TYPES()["required"]
         if "seed" in inputs:
