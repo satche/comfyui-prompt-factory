@@ -52,9 +52,7 @@ class NodeFactory:
 
     @classmethod
     def create_node(cls, node_id, node_name=None):
-        """
-        Create a new node with ID and name
-        """
+        "Create a new node with ID and name"
         return type(node_id, (cls,), {
             "id": node_id,
             "name": node_name or node_id.capitalize()
