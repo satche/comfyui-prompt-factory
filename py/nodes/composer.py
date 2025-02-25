@@ -55,9 +55,14 @@ class Composer:
         # Also transforms tags as variables
         tags = self._extract_tags(rng)
         processed_tags = apply_variables(rng, tags, variables)
+        
+        # Process whole node to use as variable
+        nodes = {}
+        for key, value in self.data.items():
+            nodes[key] = select_tags(rng, value)
 
         # Merge everything and replace in prompt
-        variables = {**variables, **processed_tags}        
+        variables = {**variables, **processed_tags, **nodes}        
         prompt = args["prompt"]
         prompt = apply_variables(rng, prompt, variables)
 
