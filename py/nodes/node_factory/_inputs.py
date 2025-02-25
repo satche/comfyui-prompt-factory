@@ -10,6 +10,10 @@ def build_inputs(self):
 
     for key, value in dpath.search(self.data["tags"], '*', yielded=True):
         inputs["required"][key] = format_value(key, value)
+        
+        input_type = inputs["required"][key][0]
+        if input_type in ("FLOAT", "BOOLEAN"):
+            inputs["required"][f"{key}?"] = inputs["required"].pop(key)
 
     return inputs
 
@@ -31,7 +35,7 @@ def format_value(key, value):
                 "default": value,
                 "min": 0,
                 "max": 1,
-                "step": 0.1
+                "step": 0.05
             })
 
         case str():
@@ -101,6 +105,9 @@ def apply_input_values(data, inputs):
     Can be "random", "none", or a selected value
     """
     applied_values = {}
+    
+    # Remove "?" from keys in inputs
+    inputs = {key.rstrip('?'): value for key, value in inputs.items()}
 
     def traverse(data):
 
@@ -109,6 +116,12 @@ def apply_input_values(data, inputs):
             selected = inputs.get(key, "random")
 
             match selected:
+                
+                # If a number, use "probability"
+                case int() | float():
+                    if isinstance(value, dict) and "probability" in value:
+                        value["probability"] = selected
+                    applied_values[key] = value
 
                 # If "none" or false, just ignore the tag
                 case "none" | False:
@@ -129,7 +142,7 @@ def apply_input_values(data, inputs):
                     if selected is True:
                         applied_values[key] = value
                         continue
-
+                
                     if isinstance(value, dict):
                         prefix = value.get("prefix", "")
                         suffix = value.get("suffix", "")
