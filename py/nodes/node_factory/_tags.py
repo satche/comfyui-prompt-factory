@@ -18,10 +18,10 @@ def select_tags(rng, data, p=None):
     # Probability
     if p is None:
         p = data.get("probability", 1)
-        
+
     if rng.random() > p:
         return ""
-    
+
     # Tag selection
     tags = data.get("tags", [])
     prefix = data.get("prefix", "")
