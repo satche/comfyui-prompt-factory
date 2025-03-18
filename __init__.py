@@ -2,6 +2,7 @@ from .py.utils.config import load_nodes_config
 from .py.nodes.node_factory import NodeFactory
 from .py.nodes.merge_strings import MergeStrings
 from .py.nodes.composer import Composer
+from .py.nodes.cleanup_prompt import CleanupPrompt
 
 NODE_CLASS_MAPPINGS = {}
 NODE_DISPLAY_NAME_MAPPINGS = {}
@@ -25,6 +26,7 @@ for key, value in config.items():
 # Add additional nodes
 register_node("MergeStrings", "🪡 Merge Strings", MergeStrings)
 register_node("Composer", "🖋️ Composer", Composer)
+register_node("CleanupPrompt", "🧹 CleanUp Prompt", CleanupPrompt)
 
 __all__ = [
     "NODE_CLASS_MAPPINGS",
