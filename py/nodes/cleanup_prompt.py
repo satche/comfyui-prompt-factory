@@ -1,5 +1,6 @@
 import numpy as np
 import fnmatch
+from .node_factory._tags import stringify_tags
 
 
 class CleanupPrompt:
@@ -56,6 +57,9 @@ class CleanupPrompt:
 
             tags = sorted(tags, key=lambda x:
                           custom_order_dict.get(x, len(custom_order_dict)))
+
+        prompt = stringify_tags(tags.values(), ", ")
+        return (prompt,)
 
     def remove_duplicates(tags):
         seen = set()
