@@ -23,7 +23,7 @@ class Composer:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("string",)
     FUNCTION = "build_prompt"
-    CATEGORY = "⚙️ Prompt Factory/✒️ Composer"
+    CATEGORY = "⚙️ Prompt Factory/🛠️ Utils"
 
     @classmethod
     def INPUT_TYPES(s):
