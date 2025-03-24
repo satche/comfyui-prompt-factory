@@ -61,3 +61,19 @@ def chose_config(extra_path=""):
     absolute_config_path = os.path.join(ROOT_PATH, config_path, extra_path)
 
     return absolute_config_path
+
+
+def load_rules():
+    "Load rules"
+    config_path = chose_config("rules")
+    config_files = glob(os.path.join(
+        config_path, "**", "*.json"), recursive=True)
+
+    config = {}
+    for path in config_files:
+        with open(path, 'r') as config_file:
+            config_data = json.load(config_file)
+            node_id = os.path.splitext(os.path.basename(path))[0]
+            config[node_id] = config_data
+
+    return config
