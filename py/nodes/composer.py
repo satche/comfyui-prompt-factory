@@ -23,18 +23,18 @@ class Composer:
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("string",)
     FUNCTION = "build_prompt"
-    CATEGORY = "⚙️ Prompt Factory/✒️ Composer"
+    CATEGORY = "⚙️ Prompt Factory/🛠️ Utils"
 
     @classmethod
     def INPUT_TYPES(s):
         return {
             "required": {
+                "prompt": ("STRING", {"default": "", "multiline": True}),
                 "seed": ("INT", {
                     "default": 0,
                     "min": 0,
                     "max": 0xffffffffffffffff
                 }),
-                "prompt": ("STRING", {"default": "", "multiline": True})
             },
             "optional": {
             }
@@ -46,7 +46,7 @@ class Composer:
         Return the prompt with the variables replaced
         """
         rng = np.random.default_rng(args["seed"])
-        
+
         # Extract global and local variables
         global_variables = load_variables_config()
         local_variables = self._extract_local_variables(rng, global_variables)
@@ -55,14 +55,14 @@ class Composer:
         # Also transforms tags as variables
         tags = self._extract_tags(rng)
         processed_tags = apply_variables(rng, tags, variables)
-        
+
         # Process whole node to use as variable
         nodes = {}
         for key, value in self.data.items():
             nodes[key] = select_tags(rng, value)
 
         # Merge everything and replace in prompt
-        variables = {**variables, **processed_tags, **nodes}        
+        variables = {**variables, **processed_tags, **nodes}
         prompt = args["prompt"]
         prompt = apply_variables(rng, prompt, variables)
 
