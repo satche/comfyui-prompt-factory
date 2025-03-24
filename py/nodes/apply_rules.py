@@ -19,13 +19,14 @@ class ApplyRules:
 
     def __init__(self):
         self.config = load_nodes_config()
-        self.rules = load_rules()["rules"]
+        self.rules = load_rules()
 
     @classmethod
-    def INPUT_TYPES(s):
+    def INPUT_TYPES(cls):
         return {
             "required": {
                 "prompt": ("STRING", {"multiline": True}),
+                "rules": (["all", *cls.rules.keys()]),
                 "seed": ("INT", {
                     "default": 0,
                     "min": 0,
@@ -35,7 +36,7 @@ class ApplyRules:
             "optional": {}
         }
 
-    def apply_rules(self, prompt, seed):
+    def apply_rules(self, prompt, rule, seed):
         """
         Apply the rules defined in config file.
         Add and remove tags in the prompt
@@ -44,10 +45,25 @@ class ApplyRules:
         rng = np.random.default_rng(seed)
         tags = prompt.split(", ")
 
-        for rule in self.rules:
-            triggers = rule["triggers"]
-            actions = rule["actions"]
-            p = rule.get("probability", 1)
+        # Merge all the rule together
+        if rule == "all":
+            merged_rules = {}
+            for r_name, r_list in self.rules.items():
+                for r in r_list:
+                    for key, value in r.items():
+                        if key not in merged_rules:
+                            merged_rules[key] = []
+                        if isinstance(value, list):
+                            merged_rules[key].extend(value)
+                        else:
+                            merged_rules[key].append(value)
+            self.rules["all"] = [merged_rules]
+
+        # Apply the rules
+        for r in self.rules[rule]:
+            triggers = r["triggers"]
+            actions = r["actions"]
+            p = r.get("probability", 1)
 
             if rng.random() > p:
                 continue

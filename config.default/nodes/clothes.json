@@ -6,7 +6,7 @@
     "top": ["t-shirt", "tank top"],
     "bottom": ["jeans", "shorts"],
     "swimsuit": ["one-piece swimsuit", "bikini"],
-    "uniform": ["police", "military"]
+    "uniform": ["police", "military", "school"]
   },
   "tags": {
     "type": {
@@ -20,7 +20,8 @@
     "accessories": {
       "probability": 0.4,
       "repeat": [1, 2],
-      "tags": ["hat", "scarf", "watch", "bracelet", "necklace"]
+      "prefix": "{color} ",
+      "tags": ["hat", "scarf", "watch", "bracelet", "necklace", "backpack"]
     }
   }
 }

@@ -7,7 +7,6 @@
         "indoors": ["living room", "office", "library"],
         "outdoors": {
           "number": 2,
-          "separator": ",",
           "tags": {
             "location": ["park", "beach", "forest"],
             "weather": ["sunny", "cloudy", "rainy", "snowy"]
