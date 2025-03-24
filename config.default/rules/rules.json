@@ -2,9 +2,18 @@
   {
     "triggers": ["*swimsuit*", "*bikini*"],
     "actions": [
-      { "type": "remove", "value": "/environment/**/*" },
-      { "type": "add", "value": "beach" },
-      { "type": "add", "value": ["sun", "sunlight"] }
+      {
+        "type": "remove",
+        "value": "/environment/**/*"
+      },
+      {
+        "type": "add",
+        "value": ["beach", "river", "lake", "shore"]
+      },
+      {
+        "type": "add",
+        "value": "sun"
+      }
     ]
   }
 ]
