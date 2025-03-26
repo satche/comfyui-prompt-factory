@@ -1,491 +1,22 @@
 {
-  "last_node_id": 56,
-  "last_link_id": 64,
+  "id": "5e3ec47f-0bae-420b-b9c0-2837fe4c95c5",
+  "revision": 0,
+  "last_node_id": 68,
+  "last_link_id": 89,
   "nodes": [
-    {
-      "id": 5,
-      "type": "EmptyLatentImage",
-      "pos": [
-        738,
-        527
-      ],
-      "size": [
-        210,
-        106
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 0,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "LATENT",
-          "type": "LATENT",
-          "links": [
-            2
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "EmptyLatentImage"
-      },
-      "widgets_values": [
-        1024,
-        1024,
-        1
-      ],
-      "color": "#323",
-      "bgcolor": "#535"
-    },
-    {
-      "id": 20,
-      "type": "Note",
-      "pos": [
-        28.615943908691406,
-        52.70095443725586
-      ],
-      "size": [
-        432.2853088378906,
-        194.93133544921875
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 1,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [],
-      "title": "📖 README",
-      "properties": {},
-      "widgets_values": [
-        "Hi! Here's a simple showcase for the Prompt Factory nodes\n\nJust play with the node's parameters below and see how the elements change in the generation.\n\nYou can check this custom node's folder and change the config files to edit and create your own nodes!\n\nFor more info, check out these links:\n\nSource code: https://github.com/satche/comfyui-prompt-factory\nWiki:        https://github.com/satche/comfyui-prompt-factory/wiki\nRoadmap:     https://github.com/users/satche/projects/5/"
-      ],
-      "color": "#432",
-      "bgcolor": "#653"
-    },
-    {
-      "id": 8,
-      "type": "VAEDecode",
-      "pos": [
-        1271,
-        180.94573974609375
-      ],
-      "size": [
-        210,
-        46
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "samples",
-          "type": "LATENT",
-          "link": 7
-        },
-        {
-          "name": "vae",
-          "type": "VAE",
-          "link": 8
-        }
-      ],
-      "outputs": [
-        {
-          "name": "IMAGE",
-          "type": "IMAGE",
-          "links": [
-            9
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "VAEDecode"
-      },
-      "widgets_values": [],
-      "color": "#233",
-      "bgcolor": "#355"
-    },
-    {
-      "id": 7,
-      "type": "CLIPTextEncode",
-      "pos": [
-        738,
-        352
-      ],
-      "size": [
-        210,
-        119.52225494384766
-      ],
-      "flags": {
-        "collapsed": false
-      },
-      "order": 7,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 5
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            6
-          ],
-          "slot_index": 0
-        }
-      ],
-      "title": "Negative",
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "score_6, score_5, score_4"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 4,
-      "type": "CheckpointLoaderSimple",
-      "pos": [
-        419.45562744140625,
-        110.38969421386719
-      ],
-      "size": [
-        288.1031188964844,
-        98
-      ],
-      "flags": {},
-      "order": 2,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            1
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [
-            3,
-            5
-          ],
-          "slot_index": 1
-        },
-        {
-          "name": "VAE",
-          "type": "VAE",
-          "links": [
-            8
-          ],
-          "slot_index": 2
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "CheckpointLoaderSimple"
-      },
-      "widgets_values": [
-        "tponyai.safetensors"
-      ],
-      "color": "#332922",
-      "bgcolor": "#593930"
-    },
-    {
-      "id": 30,
-      "type": "MergeStrings",
-      "pos": [
-        414.95904541015625,
-        381.5138244628906
-      ],
-      "size": [
-        210,
-        138
-      ],
-      "flags": {},
-      "order": 8,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "string_1",
-          "type": "STRING",
-          "link": 60
-        },
-        {
-          "name": "string_2",
-          "type": "STRING",
-          "link": 61
-        },
-        {
-          "name": "string_3",
-          "type": "STRING",
-          "link": 62
-        },
-        {
-          "name": "string_4",
-          "type": "STRING",
-          "link": 63
-        },
-        {
-          "name": "string",
-          "type": "STRING",
-          "link": null
-        }
-      ],
-      "outputs": [
-        {
-          "name": "string",
-          "type": "STRING",
-          "links": [
-            28,
-            64
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "MergeStrings"
-      },
-      "widgets_values": [
-        ", "
-      ]
-    },
-    {
-      "id": 56,
-      "type": "ShowText|pysssss",
-      "pos": [
-        1286.1868896484375,
-        596.7202758789062
-      ],
-      "size": [
-        319.9373779296875,
-        170.79751586914062
-      ],
-      "flags": {},
-      "order": 10,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 64,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": null,
-          "shape": 6
-        }
-      ],
-      "title": "Output",
-      "properties": {
-        "Node name for S&R": "ShowText|pysssss"
-      },
-      "widgets_values": [
-        "",
-        "score_9, score_8_up, score_7_up, straight-on, depth of field, slim, tanned skin, blue eyes, brown hair, short hair, wavy hair, smiling, green t-shirt, white jeans, park, sunny"
-      ],
-      "color": "#2a363b",
-      "bgcolor": "#3f5159"
-    },
-    {
-      "id": 6,
-      "type": "CLIPTextEncode",
-      "pos": [
-        786.80126953125,
-        304
-      ],
-      "size": [
-        210,
-        54
-      ],
-      "flags": {
-        "collapsed": true
-      },
-      "order": 9,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 3
-        },
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 28,
-          "widget": {
-            "name": "text"
-          }
-        }
-      ],
-      "outputs": [
-        {
-          "name": "CONDITIONING",
-          "type": "CONDITIONING",
-          "links": [
-            4
-          ],
-          "slot_index": 0
-        }
-      ],
-      "title": "Positive",
-      "properties": {
-        "Node name for S&R": "CLIPTextEncode"
-      },
-      "widgets_values": [
-        "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 51,
-      "type": "character",
-      "pos": [
-        32.17244338989258,
-        350.93524169921875
-      ],
-      "size": [
-        315,
-        250
-      ],
-      "flags": {},
-      "order": 3,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            46,
-            52,
-            57,
-            61
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "character"
-      },
-      "widgets_values": [
-        "slim",
-        "tanned",
-        "blue",
-        "random",
-        "random",
-        "wavy",
-        "smiling",
-        0,
-        "fixed"
-      ]
-    },
-    {
-      "id": 48,
-      "type": "clothes",
-      "pos": [
-        28.805156707763672,
-        666.41552734375
-      ],
-      "size": [
-        315,
-        130
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            44,
-            62
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "clothes"
-      },
-      "widgets_values": [
-        "casual",
-        "random",
-        0,
-        "fixed"
-      ]
-    },
-    {
-      "id": 49,
-      "type": "environment",
-      "pos": [
-        32.389686584472656,
-        850
-      ],
-      "size": [
-        315,
-        106
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": [
-            48,
-            59,
-            63
-          ],
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "environment"
-      },
-      "widgets_values": [
-        "random",
-        0,
-        "fixed"
-      ]
-    },
     {
       "id": 3,
       "type": "KSampler",
       "pos": [
-        985,
-        273
+        1085.71728515625,
+        254.44677734375
       ],
       "size": [
-        267,
-        262
+        300.49591064453125,
+        528.2864379882812
       ],
       "flags": {},
-      "order": 11,
+      "order": 14,
       "mode": 0,
       "inputs": [
         {
@@ -513,40 +44,284 @@
         {
           "name": "LATENT",
           "type": "LATENT",
+          "slot_index": 0,
           "links": [
             7
-          ],
-          "slot_index": 0
+          ]
         }
       ],
+      "title": "⚙️ KSampler",
       "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
         "Node name for S&R": "KSampler"
       },
       "widgets_values": [
         0,
         "fixed",
-        30,
-        5,
-        "euler",
-        "karras",
-        1
+        35,
+        4,
+        "ddim",
+        "sgm_uniform",
+        1,
+        ""
       ],
       "color": "#223",
       "bgcolor": "#335"
     },
     {
+      "id": 4,
+      "type": "CheckpointLoaderSimple",
+      "pos": [
+        449.8435363769531,
+        133.53016662597656
+      ],
+      "size": [
+        381.4873962402344,
+        98
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "slot_index": 0,
+          "links": [
+            1
+          ]
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "slot_index": 1,
+          "links": [
+            3,
+            5
+          ]
+        },
+        {
+          "name": "VAE",
+          "type": "VAE",
+          "slot_index": 2,
+          "links": [
+            8
+          ]
+        }
+      ],
+      "title": "📥 Load Checkpoint",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CheckpointLoaderSimple"
+      },
+      "widgets_values": [
+        "SDXL/sd_xl_base_1.0.safetensors"
+      ],
+      "color": "#332922",
+      "bgcolor": "#593930"
+    },
+    {
+      "id": 5,
+      "type": "EmptyLatentImage",
+      "pos": [
+        558.1443481445312,
+        312.17816162109375
+      ],
+      "size": [
+        210,
+        106
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LATENT",
+          "type": "LATENT",
+          "slot_index": 0,
+          "links": [
+            2
+          ]
+        }
+      ],
+      "title": "🖼️ Empty Latent Image",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "EmptyLatentImage"
+      },
+      "widgets_values": [
+        1024,
+        1024,
+        1
+      ],
+      "color": "#323",
+      "bgcolor": "#535"
+    },
+    {
+      "id": 6,
+      "type": "CLIPTextEncode",
+      "pos": [
+        930,
+        380
+      ],
+      "size": [
+        210,
+        58
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 3
+        },
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 88
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            4
+          ]
+        }
+      ],
+      "title": "Positive",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        "beautiful scenery nature glass bottle landscape, , purple galaxy bottle,"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
+    },
+    {
+      "id": 7,
+      "type": "CLIPTextEncode",
+      "pos": [
+        930,
+        420
+      ],
+      "size": [
+        210,
+        94.11156463623047
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 5
+        }
+      ],
+      "outputs": [
+        {
+          "name": "CONDITIONING",
+          "type": "CONDITIONING",
+          "slot_index": 0,
+          "links": [
+            6
+          ]
+        }
+      ],
+      "title": "Negative",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "CLIPTextEncode"
+      },
+      "widgets_values": [
+        ""
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 8,
+      "type": "VAEDecode",
+      "pos": [
+        1392.256103515625,
+        206.40403747558594
+      ],
+      "size": [
+        210,
+        46
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "samples",
+          "type": "LATENT",
+          "link": 7
+        },
+        {
+          "name": "vae",
+          "type": "VAE",
+          "link": 8
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "slot_index": 0,
+          "links": [
+            9
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "VAEDecode"
+      },
+      "widgets_values": [],
+      "color": "#233",
+      "bgcolor": "#355"
+    },
+    {
       "id": 9,
       "type": "SaveImage",
       "pos": [
-        1280,
-        240
+        1415.9517822265625,
+        263.61810302734375
       ],
       "size": [
-        327,
-        302.48333740234375
+        418.0741882324219,
+        515.7020874023438
       ],
       "flags": {},
-      "order": 13,
+      "order": 16,
       "mode": 0,
       "inputs": [
         {
@@ -556,38 +331,126 @@
         }
       ],
       "outputs": [],
-      "properties": {},
+      "title": "💾 Save Image",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27"
+      },
       "widgets_values": [
-        "ComfyUI"
+        "output",
+        ""
       ],
       "color": "#233",
       "bgcolor": "#355"
     },
     {
-      "id": 55,
-      "type": "composition",
+      "id": 56,
+      "type": "ShowText|pysssss",
       "pos": [
-        28.91377830505371,
-        100.4480209350586
+        1082.5174560546875,
+        830.5170288085938
       ],
       "size": [
-        325.05072021484375,
-        196
+        295.62396240234375,
+        156.41737365722656
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "widget": {
+            "name": "text"
+          },
+          "link": 89
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "shape": 6,
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "📝 Prompt Output",
+      "properties": {
+        "cnr_id": "comfyui-custom-scripts",
+        "ver": "1.2.3",
+        "Node name for S&R": "ShowText|pysssss"
+      },
+      "widgets_values": [
+        "",
+        "score_9, score_8_up, score_7_up, close-up, depth of field, 1girl, slim, green eyes, ginger hair, very long hair, curly hair, pigtails, bored, purple uniform, military uniform, living room"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 57,
+      "type": "MarkdownNote",
+      "pos": [
+        -276.9530029296875,
+        130.80149841308594
+      ],
+      "size": [
+        293.8118896484375,
+        225.25489807128906
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "📖 README",
+      "properties": {},
+      "widgets_values": [
+        "Hi! 👋\n\nHere's a simple workflow to demonstrate the *Prompt Factory* usage.\n\nJust play with the node's parameters and see how different elements of the image change among the generations…\n\n…or simply left everything on random and change the seed!\n\nYou can also check this custom node's folder and change the config files to edit and create your own nodes!\n\nFor more info, check out these links:<br>\n[Wiki](https://github.com/satche/comfyui-prompt-factory/wiki) – \n[Roadmap](https://github.com/satche/projects/5) – \n[Source code](https://github.com/satche/comfyui-prompt-factory)"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 58,
+      "type": "composition",
+      "pos": [
+        70,
+        130
+      ],
+      "size": [
+        320.83837890625,
+        184
       ],
       "flags": {},
       "order": 6,
       "mode": 0,
-      "inputs": [],
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 69
+        }
+      ],
       "outputs": [
         {
           "name": "STRING",
           "type": "STRING",
           "links": [
-            60
+            70,
+            78
           ]
         }
       ],
       "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
         "Node name for S&R": "composition"
       },
       "widgets_values": [
@@ -595,9 +458,334 @@
         "random",
         "random",
         true,
+        310097625143872,
+        "randomize"
+      ]
+    },
+    {
+      "id": 59,
+      "type": "PrimitiveInt",
+      "pos": [
+        -288.6645202636719,
+        642.64990234375
+      ],
+      "size": [
+        294.1230773925781,
+        82
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "INT",
+          "type": "INT",
+          "links": [
+            69,
+            73,
+            74,
+            75,
+            87
+          ]
+        }
+      ],
+      "title": "🌱 Seed",
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.27",
+        "Node name for S&R": "PrimitiveInt"
+      },
+      "widgets_values": [
         0,
         "fixed"
       ]
+    },
+    {
+      "id": 62,
+      "type": "character",
+      "pos": [
+        70,
+        360
+      ],
+      "size": [
+        318.6300048828125,
+        274
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 73
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            72,
+            79
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
+        "Node name for S&R": "character"
+      },
+      "widgets_values": [
+        "random",
+        "random",
+        "random",
+        "random",
+        "random",
+        "random",
+        "random",
+        "random",
+        "random",
+        563469955575631,
+        "randomize"
+      ]
+    },
+    {
+      "id": 63,
+      "type": "clothes",
+      "pos": [
+        69.36473083496094,
+        709.2005004882812
+      ],
+      "size": [
+        315.6654968261719,
+        106
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 74
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            76,
+            80
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
+        "Node name for S&R": "clothes"
+      },
+      "widgets_values": [
+        "random",
+        "random",
+        988646725050547,
+        "randomize"
+      ]
+    },
+    {
+      "id": 64,
+      "type": "environment",
+      "pos": [
+        70,
+        854.7536010742188
+      ],
+      "size": [
+        312.3380126953125,
+        82
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 75
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            81
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
+        "Node name for S&R": "environment"
+      },
+      "widgets_values": [
+        "random",
+        904424336103636,
+        "randomize"
+      ]
+    },
+    {
+      "id": 65,
+      "type": "MergeStrings",
+      "pos": [
+        450.8428039550781,
+        493.01837158203125
+      ],
+      "size": [
+        210,
+        138
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "string_1",
+          "type": "STRING",
+          "link": 78
+        },
+        {
+          "name": "string_2",
+          "type": "STRING",
+          "link": 79
+        },
+        {
+          "name": "string_3",
+          "type": "STRING",
+          "link": 80
+        },
+        {
+          "name": "string_4",
+          "type": "STRING",
+          "link": 81
+        },
+        {
+          "name": "string",
+          "type": "STRING",
+          "link": null
+        }
+      ],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            86
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
+        "Node name for S&R": "MergeStrings"
+      },
+      "widgets_values": [
+        ", "
+      ]
+    },
+    {
+      "id": 67,
+      "type": "CleanupPrompt",
+      "pos": [
+        696.6595458984375,
+        487.04754638671875
+      ],
+      "size": [
+        210,
+        184
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "prompt",
+          "type": "STRING",
+          "widget": {
+            "name": "prompt"
+          },
+          "link": 86
+        },
+        {
+          "name": "seed",
+          "type": "INT",
+          "widget": {
+            "name": "seed"
+          },
+          "link": 87
+        }
+      ],
+      "outputs": [
+        {
+          "name": "string",
+          "type": "STRING",
+          "links": [
+            88,
+            89
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-prompt-factory",
+        "ver": "7e92b1ade19eeb0e2d7a6b44569db3fdee0578a4",
+        "Node name for S&R": "CleanupPrompt"
+      },
+      "widgets_values": [
+        "",
+        true,
+        "none",
+        "",
+        319318730267811,
+        "randomize"
+      ]
+    },
+    {
+      "id": 68,
+      "type": "MarkdownNote",
+      "pos": [
+        698.91796875,
+        715.7122192382812
+      ],
+      "size": [
+        210,
+        120.82062530517578
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "title": "ℹ️ About CleanUp node",
+      "properties": {},
+      "widgets_values": [
+        "Clean up prompt will remove duplicate tags and extra commas.\n\nYou can sort tags with different filters. Custom sort will put the defined tags at the beginning of the prompt"
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
     }
   ],
   "links": [
@@ -674,96 +862,112 @@
       "IMAGE"
     ],
     [
-      28,
-      30,
+      69,
+      59,
+      0,
+      58,
+      0,
+      "INT"
+    ],
+    [
+      72,
+      62,
+      0,
+      61,
+      0,
+      "STRING"
+    ],
+    [
+      73,
+      59,
+      0,
+      62,
+      0,
+      "INT"
+    ],
+    [
+      74,
+      59,
+      0,
+      63,
+      0,
+      "INT"
+    ],
+    [
+      75,
+      59,
+      0,
+      64,
+      0,
+      "INT"
+    ],
+    [
+      76,
+      63,
+      0,
+      61,
+      1,
+      "STRING"
+    ],
+    [
+      78,
+      58,
+      0,
+      65,
+      -1,
+      "STRING"
+    ],
+    [
+      79,
+      62,
+      0,
+      65,
+      0,
+      "STRING"
+    ],
+    [
+      80,
+      63,
+      0,
+      65,
+      1,
+      "STRING"
+    ],
+    [
+      81,
+      64,
+      0,
+      65,
+      2,
+      "STRING"
+    ],
+    [
+      86,
+      65,
+      0,
+      67,
+      0,
+      "STRING"
+    ],
+    [
+      87,
+      59,
+      0,
+      67,
+      1,
+      "INT"
+    ],
+    [
+      88,
+      67,
       0,
       6,
       1,
       "STRING"
     ],
     [
-      44,
-      48,
-      0,
-      30,
-      1,
-      "STRING"
-    ],
-    [
-      46,
-      51,
-      0,
-      30,
-      0,
-      "STRING"
-    ],
-    [
-      48,
-      49,
-      0,
-      30,
-      1,
-      "STRING"
-    ],
-    [
-      52,
-      51,
-      0,
-      30,
-      0,
-      "STRING"
-    ],
-    [
-      57,
-      51,
-      0,
-      30,
-      0,
-      "STRING"
-    ],
-    [
-      59,
-      49,
-      0,
-      30,
-      1,
-      "STRING"
-    ],
-    [
-      60,
-      55,
-      0,
-      30,
-      0,
-      "STRING"
-    ],
-    [
-      61,
-      51,
-      0,
-      30,
-      1,
-      "STRING"
-    ],
-    [
-      62,
-      48,
-      0,
-      30,
-      2,
-      "STRING"
-    ],
-    [
-      63,
-      49,
-      0,
-      30,
-      3,
-      "STRING"
-    ],
-    [
-      64,
-      30,
+      89,
+      67,
       0,
       56,
       0,
@@ -774,39 +978,16 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.7608450408088964,
+      "scale": 0.5740446358478546,
       "offset": [
-        123.9790244167516,
-        7.02428761133992
+        655.7796071370442,
+        166.84342431169216
       ]
     },
     "linkExtensions": [
       {
-        "id": 64,
-        "parentId": 4
-      }
-    ],
-    "reroutes": [
-      {
-        "id": 3,
-        "pos": [
-          672.64404296875,
-          658.0612182617188
-        ],
-        "linkIds": [
-          64
-        ]
-      },
-      {
-        "id": 4,
-        "parentId": 3,
-        "pos": [
-          1231.82958984375,
-          666.4246826171875
-        ],
-        "linkIds": [
-          64
-        ]
+        "id": 89,
+        "parentId": 2
       }
     ],
     "node_versions": {
