@@ -10,10 +10,6 @@ class CleanupPrompt:
     Inputs: string
     Output: string
     """
-    RETURN_TYPES = ("STRING",)
-    RETURN_NAMES = ("string",)
-    FUNCTION = "cleanup_prompt"
-    CATEGORY = "⚙️ Prompt Factory/🛠️ Utils"
 
     @classmethod
     def INPUT_TYPES(s):
@@ -21,7 +17,10 @@ class CleanupPrompt:
             "required": {
                 "prompt": ("STRING", {"default": "", "multiline": True}),
                 "cleanup": ("BOOLEAN", {"default": True}),
-                "sort": (["none", "asc", "desc", "random"]),
+                "sort": (
+                    ["none", "asc", "desc", "random"],
+                    {"default": "none"}
+                ),
                 "custom_sort": ("STRING", {"default": "", "multiline": True}),
                 "seed": ("INT", {
                     "default": 0,
@@ -31,6 +30,11 @@ class CleanupPrompt:
             },
             "optional": {}
         }
+
+    RETURN_TYPES = ("STRING",)
+    RETURN_NAMES = ("string",)
+    FUNCTION = "cleanup_prompt"
+    CATEGORY = "⚙️ Prompt Factory/🛠️ Utils"
 
     def cleanup_prompt(self, prompt, cleanup, sort, custom_sort, seed):
 
@@ -58,10 +62,10 @@ class CleanupPrompt:
             tags = sorted(tags, key=lambda x:
                           custom_order_dict.get(x, len(custom_order_dict)))
 
-        prompt = stringify_tags(tags.values(), ", ")
+        prompt = stringify_tags(tags, ", ")
         return (prompt,)
 
-    def remove_duplicates(tags):
+    def remove_duplicates(self, tags):
         seen = set()
         unique_tags = []
         for tag in tags:
