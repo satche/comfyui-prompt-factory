@@ -1,35 +1,65 @@
 {
   "name": "👤 Character",
   "tags": {
+    "gender": ["1girl", "1boy"],
     "body_type": {
-      "probability": 0.7,
+      "probability": 0.3,
       "tags": ["slim", "muscular", "chubby"]
     },
-    "skin": {
-      "probability": 0.7,
+    "skin_color": {
+      "probability": 0.3,
       "suffix": " skin",
       "tags": ["dark", "tanned", "pale"]
     },
-    "eyes": {
-      "distribution": [0.25, 0.25, 0.2, 0.2, 0.1],
-      "tags": ["black", "brown", "blue", "green", "red"],
+    "eyes_color": {
+      "distribution": [0.15, 0.15, 0.15, 0.15, 0.15, 0.15],
+      "tags": [
+        "black",
+        "brown",
+        "blue",
+        "cyan",
+        "green",
+        "yellow",
+        "gray",
+        "purple",
+        "red",
+        "pink"
+      ],
       "suffix": " eyes"
     },
     "hair_color": {
-      "distribution": [0.25, 0.25, 0.25, 0.15, 0.1],
-      "tags": ["black", "brown", "blonde", "ginger", "gray"],
+      "distribution": [0.15, 0.15, 0.15, 0.15, 0.15, 0.15],
+      "tags": [
+        "black",
+        "brown",
+        "blonde",
+        "ginger",
+        "gray",
+        "white",
+        "pink",
+        "blue",
+        "cyan",
+        "green",
+        "purple",
+        "red"
+      ],
       "suffix": " hair"
     },
     "hair_length": {
       "tags": ["short", "medium", "long", "very long"],
       "suffix": " hair"
     },
-    "hair_style": {
+    "hair_texture": {
+      "probability": 0.3,
       "tags": ["straight", "wavy", "curly"],
       "suffix": " hair"
     },
+    "hair_style": {
+      "probability": 0.3,
+      "tags": ["ponytail", "bun", "braids", "pigtails", "twintails"]
+    },
     "attitude": {
-      "distribution": [0.8],
+      "distribution": [0.8, 0.1, 0.05, 0.05],
       "tags": ["smiling", "bored", "upset", "sad"]
     }
   }
